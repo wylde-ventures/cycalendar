@@ -36,6 +36,7 @@
 
     .ui.header {
         font-family: "Raleway";
+        font-weight: 200;
     }
 
     .hidden.menu {
@@ -101,10 +102,10 @@
       .ui.fixed.menu {
         display: none !important;
       }
-      .secondary.pointing.menu .item,
+      /*.secondary.pointing.menu .item,
       .secondary.pointing.menu .menu {
         display: none;
-      }
+      }*/
       .secondary.pointing.menu .toc.item {
         display: block;
       }
@@ -120,14 +121,6 @@
         font-size: 1.5em;
       }
     }
-
-    /*.hero-image {
-        background-image: url(/img/hero.jpg);
-        background-repeat: no-repeat;
-        /*background-size: cover;*/
-        background-position: center;
-        /*background-attachment: fixed;*/
-    }*/
 
 
   </style>
@@ -159,8 +152,60 @@
       $('.ui.sidebar')
         .sidebar('attach events', '.toc.item')
       ;
+
+      $('#tz-form')
+        // .form({onSuccess: function(e) {alert("FOOBAR"); return false;}})
+        .form({
+          fields: {
+            'tz-form-timezone'     : 'empty',
+            'tz-form-likelyhood'   : 'empty',
+            'tz-form-email' : 'email',
+            // tz-form-name : ['minLength[6]', 'empty'],
+            // skills   : ['minCount[2]', 'empty'],
+            // terms    : 'checked'
+          },
+    //   }
+          onSuccess: postToGoogle,
+      })
+      ;
     })
   ;
+
+  function postToGoogle() {
+      var timezone = $('#tz-form-timezone').val();
+      var likelyhood = $('#tz-form-likelyhood').val();
+      var email = $('#tz-form-email').val();
+      var name = $('#tz-form-name').val();
+      var language = $('#tz-form-language').val();
+
+      $.ajax({
+          url: "https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/formResponse",
+          data: {"entry.143094632": timezone,
+                 "entry.226489406": likelyhood,
+                 "entry.1464954672": email,
+                 "entry.1452743891": name,
+                 "entry.1995265054": language},
+          type: "POST",
+          dataType: "xml",
+          statusCode: {
+              0: function(arg1, arg2, arg3) {
+                  console.log(0, arg1, arg2, arg3);
+                  //Success message
+              },
+              200: function(arg1, arg2, arg3) {
+                  console.log(200, arg1, arg2, arg3);
+                  //Success Message
+              }
+          }
+      });
+
+      $('#tz-form').slideUp();
+      $('#tz-form-response').slideDown();
+
+      return false;
+  }
+
+  //https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/viewform
   </script>
 </head>
 <body>
@@ -225,7 +270,7 @@
     </div>
 
     <div class="ui container" style="position: relative;">
-        <img class="ui image" src="img/hero.jpg">
+        <img class="ui image" src="img/wheel-cropped.jpg">
         <div class=""
                 style='position: absolute; top: 50%; transform: translateY(-50%); width:100%;'>
 
@@ -314,92 +359,6 @@
 
   </div>
 
-  <!-- <div class="ui vertical stripe segment">
-    <div class="ui container">
-        <img class="ui image" src="img/close-up.jpg">
-    </div>
-  </div> -->
-
-
-  <!-- <div class="ui vertical stripe segment">
-    <div class="ui middle aligned stackable grid container">
-      <div class="row">
-
-        <div class="eight wide column"> -->
-
-            <!-- <h3 class="ui header">10 Rings of data</h3> -->
-
-            <!-- <div class="ui large relaxed list">
-                <div class="item">
-                  <i class="icon" style="color: #0093D7;"><i class="wi wi-moon-waxing-crescent-4"></i></i>
-                  <div class="content">
-                    <div class="">Solstice, Equinox, and Cross-Quarter Moments</div>
-                  </div>
-                </div>
-                <div class="item">
-                    <i class="icon" style="color: #00A551;"><i class="wi wi-moon-waxing-gibbous-4"></i></i>
-                  <div class="content">
-                    <div class="">Eight Lunar Phase Moments per Lunar Cycle</div>
-                  </div>
-                </div>
-                <div class="item">
-                    <i class="icon" style="color: #FBB416;"><i class="wi wi-moon-full"></i></i>
-                  <div class="content">
-                    <div class="">Color-Coded Standard (Gregorian) and Lunar Months</div>
-                  </div>
-                </div>
-                <div class="item">
-                    <i class="icon" style="color: #EC1F4C;"><i class="wi wi-moon-waning-gibbous-2"></i></i>
-                  <div class="content">
-                    <div class="">Date and Weekday Rings</div>
-                  </div>
-                </div>
-                <div class="item">
-                    <i class="icon" style="color: #623591;"><i class="wi wi-moon-waning-crescent-2"></i></i>
-                  <div class="content">
-                    <div class="">Lunar Illumination Ring</div>
-                  </div>
-                </div>
-            </div> -->
-
-          <!-- <h3 class="ui header">30in x 30in Museum Quality Print</h3>
-          <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
-          <h3 class="ui header">We Make Bananas That Can Dance</h3>
-          <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p> -->
-        <!-- </div>
-        <div class="six wide right floated column">
-          <img src="img/hero.png" class="ui large bordered rounded image">
-        </div>
-      </div> -->
-      <!-- <div class="row">
-        <div class="center aligned column">
-          <a class="ui huge button">Check Them Out</a>
-        </div>
-      </div> -->
-    <!-- </div>
-  </div> -->
-
-
-  <!-- <div class="ui vertical stripe segment">
-    <div class="ui text container">
-      <h3 class="ui header">
-          Large Format<br>
-          Museum Quality Print
-      </h3>
-    </div>
-    <div class="ui container" style="padding: 3em 0em;">
-          <img class="ui image" src="img/close-up.jpg">
-    </div>
-    <div class="ui text container">
-      <p>Thirty inch diameter wheel printed at 720dpi with archival ink on
-          your choice of quality paper.</p>
-    </div>
-  </div>
-
-  <div class="ui vertical stripe segment">
-  </div> -->
-
-
   <div class="ui vertical stripe segment">
     <div class="ui text container">
       <h3 class="ui header">
@@ -413,7 +372,8 @@
       <div class="ui large relaxed list">
           <div class="item">
             <i class="icon">
-                 <button class="ui teal button">Select</button>
+                 <a class="ui teal button"
+                    href="2016/solaryear/america_los_angeles.html">Select</a>
             </i>
             <div class="content">
               <div class="header">America/Los Angeles</div>
@@ -421,22 +381,6 @@
             </div>
           </div>
       </div>
-
-      <!-- <p><small><em>Click to view and/or order.</em></small></p> -->
-
-      <!-- <form class="ui form">
-        <div class="field">
-            <label>State</label>
-            <select class="ui fluid dropdown">
-              <option value="">State</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-            </select>
-          </div>
-      </form> -->
 
     </div>
   </div>
@@ -449,12 +393,12 @@
       <p>I'm actively generating more timezones.  Fill out the following
       form and I'll generate one just for you!</p>
 
-      <form class="ui form">
+      <form id="tz-form" class="ui form">
          <div class="two fields">
             <div class="field">
                 <label>Requested Timezone</label>
-                <select class="ui fluid dropdown">
-                  <option value="">Timezone</option>
+                <select id="tz-form-timezone" class="ui fluid dropdown">
+                  <option value=""></option>
                   <option value="Africa/Abidjan">Africa/Abidjan</option>
                   <option value="Africa/Accra">Africa/Accra</option>
                   <option value="Africa/Addis_Ababa">Africa/Addis Ababa</option>
@@ -891,37 +835,46 @@
               </div>
               <div class="field">
                   <label>How likely are you to purchase?</label>
-                  <select class="ui fluid dropdown">
-                    <option value="">Certain</option>
-                    <option value="AL">Very Likely</option>
-                    <option value="AK">Still Considering</option>
-                    <option value="AZ">Not Likely</option>
+                  <select id="tz-form-likelyhood" class="ui fluid dropdown">
+                    <option value=""></option>
+                    <option value="4">Certain</option>
+                    <option value="3">Very Likely</option>
+                    <option value="2">Still Considering</option>
+                    <option value="1">Not Likely</option>
                   </select>
                 </div>
           </div>
           <div class="two fields">
              <div class="field">
                  <label>Your Email</label>
-                 <input type="text"></input
-                 </select>
+                 <input id="tz-form-email" type="text"></input>
                </div>
                <div class="field">
                    <label>Your Name</label>
-                   <input type="text"></input>
+                   <input id="tz-form-name" type="text"></input>
                  </div>
            </div>
           <div class="field">
               <label>Prefered Language for Calendar Dates and Times</label>
-              <input type="text"></input
-              </select>
+              <input id="tz-form-language" type="text"></input>
             </div>
 
-           <button class="ui grey button">Submit</button>
+           <!-- <button class="ui grey button" onclick="postToGoogle(); return false;">Submit</button> -->
+           <div class="ui grey submit button">Submit</div>
 
-           <p>You will receive a notification by email when your selected
-               timezone is available.</p>
+           <div class="ui error message">
+             </div>
 
       </form>
+
+      <div id="tz-form-response" class="ui hidden success message">
+          Request Submitted.
+      </div>
+
+
+      <p><small>You will receive a notification by email when your selected
+          timezone is available.<small></p>
+
     </div>
   </div>
 
