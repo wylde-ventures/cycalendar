@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta name="description" content="Traditional Solar / Lunar Calendar Wheel generated with modern astronomy algorithms and correlated with the 2016 Western Calendar.">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>CyCal - Cyclic Calendars</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Raleway:200,100' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+
+  <link rel="stylesheet"
+    href="../../css/weather-icons.min.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="../dist/components/site.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/container.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/grid.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/header.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/image.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/menu.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/divider.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/segment.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/list.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/transition.css"> -->
+
+  <style type="text/css">
+
+    .east {
+      color: #00A551;
+    }
+
+    .south {
+      color: #FBB416;
+    }
+
+    .west {
+      color: #EC1F4C;
+    }
+
+    .north {
+      color: #0093D7;
+    }
+
+    .ui.header {
+        font-family: "Raleway";
+        font-weight: 200;
+    }
+
+    .hidden.menu {
+      display: none;
+    }
+    .masthead.segment {
+      min-height: 625px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: 100;
+      font-family: "Raleway";
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: 100;
+      font-family: "Raleway";
+
+    }
+    .ui.vertical.stripe {
+      padding: 3em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+    .footer.segment {
+      padding: 2em 0em;
+      text-align: center;
+    }
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      /*.secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }*/
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+
+    .headerbg {
+      background: rgba(200, 200, 200, 0.7);
+    }
+
+
+  </style>
+
+  <!-- <script src="assets/library/jquery.min.js"></script> -->
+  <!-- <script src="../dist/components/visibility.js"></script>
+  <script src="../dist/components/sidebar.js"></script>
+  <script src="../dist/components/transition.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+  <script>
+  $(document)
+    .ready(function() {
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+      $('#tz-form')
+        // .form({onSuccess: function(e) {alert("FOOBAR"); return false;}})
+        .form({
+          fields: {
+            'tz-form-timezone'     : 'empty',
+            'tz-form-likelyhood'   : 'empty',
+            'tz-form-email' : 'email',
+            // tz-form-name : ['minLength[6]', 'empty'],
+            // skills   : ['minCount[2]', 'empty'],
+            // terms    : 'checked'
+          },
+    //   }
+          onSuccess: postToGoogle,
+      })
+      ;
+    })
+  ;
+
+  function postToGoogle() {
+      var timezone = $('#tz-form-timezone').val();
+      var likelyhood = $('#tz-form-likelyhood').val();
+      var email = $('#tz-form-email').val();
+      var name = $('#tz-form-name').val();
+      var language = $('#tz-form-language').val();
+
+      $.ajax({
+          url: "https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/formResponse",
+          data: {"entry.143094632": timezone,
+                 "entry.226489406": likelyhood,
+                 "entry.1464954672": email,
+                 "entry.1452743891": name,
+                 "entry.1995265054": language},
+          type: "POST",
+          dataType: "xml",
+          statusCode: {
+              0: function(arg1, arg2, arg3) {
+                  console.log(0, arg1, arg2, arg3);
+                  //Success message
+              },
+              200: function(arg1, arg2, arg3) {
+                  console.log(200, arg1, arg2, arg3);
+                  //Success Message
+              }
+          }
+      });
+
+      $('#tz-form').slideUp();
+      $('#tz-form-response').slideDown();
+
+      return false;
+  }
+
+  //https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/viewform
+  </script>
+</head>
+<body>
+
+<!-- Following Menu -->
+<!-- <div class="ui large top fixed hidden menu">
+  <div class="ui container">
+    <a class="active item">Home</a>
+    <a class="item">Work</a>
+    <a class="item">Company</a>
+    <a class="item">Careers</a>
+    <div class="right menu">
+      <div class="item">
+        <a class="ui button">Log in</a>
+      </div>
+      <div class="item">
+        <a class="ui primary button">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Sidebar Menu -->
+<!-- <div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div> -->
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="hero-image ui vertical center aligned segment" style="padding-bottom: 0px;">
+
+    <div class="ui container">
+      <div class="ui large secondary pointing menu">
+        <!-- <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a> -->
+        <div class="header item">
+            <span style='font-family: Raleway; font-weight: 200;'>
+                <span style='color: #0093D7;'>C</span>
+                <span style='color: #00A551;'>y</span>
+                <span style='color: #FBB416;'>C</span>
+                <span style='color: #EC1F4C;'>a</span>
+                <span style='color: #623591;'>l</span>
+            </span>
+        </div>
+
+        <!-- <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <div class="right item">
+          <a class="ui button">Log in</a>
+          <a class="ui button">Sign Up</a>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="ui container" style="position: relative; overflow: hidden;">
+        <img class="ui image" src="./lunar-calendar.jpg" alt="2016 lunar calendar"
+          style='position: absolute; top: 50%; transform: translateY(-50%); width:100%; z-index: -10;'>
+        <div style="margin: 1em;">
+
+
+            <h1 class="ui header"><span class="headerbg">
+              Introducing the<br>2016 Lunar Cycle Calendar
+            </span></h1>
+
+            <br><br>
+            <div class="ui grid">
+              <div class="ui seven wide column" style="text-align: right;">
+                <h3 class="ui header">
+                  <span class="headerbg">
+                  13 Beautiful Calendar Pages<br>
+                  Choose your price<br>
+                  Print-At-Home<br>
+                  </span>
+                </h3>
+                <h2 class="ui header"><span class="headerbg">
+                  <b><a target="new" href="https://gumroad.com/l/2016-lunar-months-cyclic-calendar" style="text-decoration: underline;" onclick="ga('send', 'event', 'download1click'); return true;">Download Yours</a></b>
+                </span></h2>
+              </div>
+              <div class="ui two wide column">
+              </div>
+              <div class="ui seven wide column" style="text-align: left;">
+                <h3 class="ui header">
+                  <span class="headerbg">
+                  Your schedule is your rhythm.<br>
+                  Your life is a song.<br>
+                  Stay in harmony.
+                  </span>
+                </h3>
+                <h2 class="ui header"><span class="headerbg">
+                  <b>Keep the beat.</b>
+                </span></h2>
+              </div>
+            </div>
+
+            <br>
+
+            <h2 class="ui header">
+              <span class="headerbg">
+                Delightfully designed to sync up<br>your schedule with natural rhythms.
+              </span>
+            </h2>
+
+            <!-- <h1 style="text-align: center; margin-bottom: 0em;">
+            </h1>
+            <h2 style="text-align: center; font-family: Raleway; font-weight: 200; margin-top: 0em;">
+            </h2> -->
+            <!-- <p>Cyclic Calendar<br>of the Solar Year</p> -->
+
+          <!-- <div>Solar Year</div> -->
+          <!-- <div class="ui huge primary button">Available Now &nbsp;&nbsp;<i class="down arrow icon"></i></div> -->
+        </div>
+
+    </div>
+
+  </div>
+
+
+
+
+<div class="ui vertical stripe basic segment">
+  <div class="ui text container">
+
+      <!-- <h3 class="ui header"> -->
+      <p>
+          By modeling the rhythmic cycles of nature the Lunar Cycle Calendar
+          inspires <b>harmonic scheduling</b> of life’s events.
+        </p>
+      <!-- </h3> -->
+      <p>The Lunar Cycle Calendar <b>inverts</b> the contextual perspective of time.
+        It <b>subverts</b> the standard western months and dates <b>into the context of
+        the lunar cycle</b> rather than the other way around.</p>
+
+      <p>
+        When you start scheduling in this way your sense of <b>where you are in
+        time</b> becomes <b>re-oriented</b> to the lunar - and other - natural cycles.
+      </p>
+
+      <div class="ui info message">
+
+        <div class="ui small circular left floated image" style="margin: 2em;">
+          <img src="../../img/profile.png"></img>
+        </div>
+
+        <div style="text-align: center;">
+          <div class="ui header" style="font-family: Raleway;">Ducktaped Clocks</div>
+          <i>Jeremiah Konkle</i>
+        </div>
+
+        <p>
+          <i class="quote left icon"></i>
+          I’ve found that I become the most alive and present when I am outside
+          in nature.
+        </p>
+        <p>
+          When I'm out there long enough my body starts to forget the hustle
+          and bustle of modern society.
+        </p>
+        <p>
+          And when that happens I feel a deep sense of relaxation and well
+          being.
+        </p>
+
+        <p>Because of this I’m constantly experimenting with ways to bring
+          this sense of <b>presence and aliveness</b> into my daily home life.</p>
+
+        <p>Now, I’ve tried a lot of things.  I tend to blame computers and
+          electric gizmos and email and traffic and walls.</p>
+
+        <p>But one <b>unexpected experiment</b> has recently altered my
+          perspective and surfaced a <b>pivotal piece</b> of the puzzle.</p>
+
+        <h3 class="ui black header" style="font-family: Raleway; margin: 1em;"><b>I tried to remove clocks</b> and all other instances of
+          “clock-time” from my life for two weeks.</h3>
+
+        <p>It was one of the harder experiments I’ve done.
+          I turned clocks off.  I duck-taped over clocks I couldn’t turn off.</p>
+
+        <p>I tried not to look at the timestamps on text messages or emails.
+          If I had to meet someone I set an alarm.</p>
+
+        <p>I was expecting or hoping for my general level of stress to go down
+          and my sense of well-being to go up.  It was the opposite.</p>
+
+        <p><b>My anxiety started to go way up.</b></p>
+
+        <p>I didn’t know when to go to sleep for the night.  I didn’t know
+          when to eat.  I didn’t know when to go for a walk, or read a book,
+          or to work.</p>
+
+        <p>Because there was no when.  <b>There was only now</b>.</p>
+
+        <p>That’s when I realized that this was a <b>critical difference</b>
+          between life in the deep woods and life at home.
+
+        <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+          The nature of clocktime and modern calendars is strangely out of sync
+          with natural rhythms.</h3>
+
+        <p>Over the course of the two week experiment I was able to
+          <b>re-orient</b> questions like “when should I go to sleep” into the
+          only question I could answer:</p>
+
+        <p style="text-align: center;"><b>"what do I want or need to do now?”</b></p>
+
+        <p>The answer to that question was found in the <b>awareness of the
+          natural rhythms</b> within and around me.</p>
+
+        <p>I could start to feel the pulse of tiredness and alertness
+          in myself but <b>also in the world around me</b>.</p>
+
+        <p>The pulse of hunger and satiation.  The pulse of warmth and
+          coolness.  The pulses of <b>my own needs</b> and the pulses of the
+          <b>needs of others</b>.</p>
+
+        <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+          In the meetings of these pulses was the emergence of a life lived.
+        </h3>
+
+        <p>At the end of the two weeks the reality of coordinating my life
+          with other people won out over continuing the experiment.</p>
+
+        <p><b>But I was hooked</b>.</p>
+
+        <p><b>What if</b> I could find a way to <b>schedule “clock-time”</b>
+          and keep it “contained” within an <b>awareness of and orientation
+            to the natural rhythms</b> and pulses of myself and the world.
+          <i class="quote right icon"></i></p>
+
+        <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+          This calendar is an answer to that question.
+          </h3>
+
+          <img class="ui centered medium image"
+              src="../../img/signature.png"></img>
+      </div>
+
+      <h3 class="ui header" style="font-family: Raleway; margin: 1em; margin-top: 2em;">
+        The Lunar Cycle Calendar’s primary orienting rhythm and pulse is the
+        <b>Synodic Month</b>
+      </h3>
+
+      <p>
+        A Synodic Month is a complete <b>Lunar Phase Cycle</b>, from
+        new moon through the first quarter, full moon, last quarter, and
+        returning to new moon.
+      </p>
+
+      <p>
+        The Lunar Cycle Calendar also orients to the rhythm and pulse of
+        <b>daily</b> cycles, <b>weekly</b> cycles, and <b>yearly</b> cycles.
+      </p>
+
+      <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+        All of these cycles are correlated with each other through the use of
+        the color wheel.
+      </h3>
+
+      <p>
+        This allows us to notice the correlations in "felt sense" of
+        <b class="east">morning</b>, the <b class="east">waxing moon</b>,
+        and <b class="east">spring</b>. Of <b class="south">midday</b>, the
+          <b class="south">full moon</b>, and <b class="south">summer</b>.
+          And of <b class="west">evening</b>, the <b class="west">waning moon</b>,
+          and <b class="west">autumn</b>.  And of <b class="north">night</b>,
+            the <b class="north">new moon</b>, and <b class="north">winter</b>.
+      </p>
+
+      <p>When we start to orient to these naturaly occuring pulses and rhythms
+        of energy and experience <b>we <span class="east">start</span> to
+          <span class="south">see</span> <span class="west">them</span>
+          <span class="north">everywhere</span></b>.</p>
+
+      <p>As cliche as it sounds, this pulse is nothing more, or less, than
+        the great circle of life. It is birth and death.
+        <b>It is life and compost</b>.</p>
+
+      <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+        The rhythms of the Sun and Moon are the syncopated metronomes in the
+        symphony of life.</h3>
+
+    </div>
+  </div>
+
+  <div class="ui container">
+    <hr>
+    <h1 class="ui header" style="text-align: center;"><span class="headerbg">
+      The 2016 Lunar Cycle Calendar<br>
+    </span></h1>
+  <h3 class="ui header" style="text-align: center;"><span class="headerbg">
+    Available now as a digital download!
+  </span></h3>
+
+  <div class="ui grid" style="margin-top: 1em; margin-bottom: 1em;">
+    <div class="ui seven wide column" style="text-align: right;">
+      <h2 class="ui header">
+        13 Beautiful Calendar Pages<br>
+        Choose your price<br>
+        Print-At-Home<br>
+
+      </h2>
+      <h2 class="ui header">
+        <b><a target="new" href="https://gumroad.com/l/2016-lunar-months-cyclic-calendar" style="text-decoration: underline;" onclick="ga('send', 'event', 'download2click'); return true;">Download Yours</a></b>
+      </h2>
+    </div>
+    <div class="ui two wide column">
+    </div>
+    <div class="ui seven wide column" style="text-align: left;">
+      <h2 class="ui header">
+        Your schedule is your rhythm.<br>
+        Your life is a song.<br>
+        Stay in harmony.
+      </h2>
+      <h2 class="ui header"><b>Keep the beat.</b></h2>
+    </div>
+  </div>
+  <hr>
+</div>
+
+  <div class="ui vertical stripe basic segment">
+    <div class="ui text container">
+      <p style="text-align: center;">
+        <!-- Want to see it first?<br> -->
+        <a target="new" href="./2016-Lunar-Months-Preview.pdf" onclick="ga('send', 'event', 'previewclick'); return true;">Download Free 3-Page Preview</a>
+      </p>
+      <!-- <hr> -->
+      <p>  We can - <b>and we must</b> - rock out on our own solos from time to
+        time.  But if we do so without resonance with the underlying
+        rhythm - <b>isn’t that just obnoxious noise?</b></p>
+
+      <p>Scheduling with The Lunar Cycle Calendar can help us regain our awareness
+        of the basic pulses inherent in the life around us and to <b>keep the
+        beat</b> with the rhythms of the world.</p>
+    </div>
+  </div>
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui text container">
+        <p>
+            <span style='font-family: Raleway; font-weight: 200;'>
+                <!-- CyCal  -->
+                <span style='color: #0093D7;'>C</span>
+                <span style='color: #00A551;'>y</span>
+                <span style='color: #FBB416;'>C</span>
+                <span style='color: #EC1F4C;'>a</span>
+                <span style='color: #623591;'>l</span>
+                Cyclic Calendars
+            </span><br>
+            <small>Copyright 2016 Jeremiah Konkle</small>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <small><a class="ui inverted link" href="mailto:jeremiah@wylde.ventures">jeremiah@wylde.ventures</a></small>
+        </p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58424545-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>
