@@ -10,6 +10,7 @@
   <!-- Site Properties -->
   <title>CyCal - Cyclic Calendars</title>
 
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,100' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
@@ -237,6 +238,20 @@
       background: #A4C2E6; color: #1D4486;
     }
 
+    .lunarcalc-frame {
+      width: 100%;
+      height: 350px;
+      border: none;
+    }
+
+    .moonsletter-frame {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      height: 500px;
+      border: none;
+    }
+
 
   </style>
 
@@ -408,10 +423,10 @@
         <a class="item">Lunar</a>
         <a class="item">About</a> -->
         <div class="right item">
-          <a class="item one-hover">Lunar Journal</a>
-          <a class="item two-hover">Lunar Calendar</a>
-          <a class="item three-hover">Solar Calendar</a>
-          <a class="item four-hover">About</a>
+          <a class="item one-hover" href="#calendars">Calendars</a>
+          <a class="item two-hover" href="#calculator">Lunar Day Calculator</a>
+          <a class="item three-hover" href="#moonsletter">Moonsletter</a>
+          <a class="item four-hover" href="#about">About</a>
         </div>
 
           <!--
@@ -605,6 +620,12 @@
         of the basic pulses inherent in the life around us and to <b>keep the
         beat</b> with the rhythms of the world.</p> -->
 
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="calendars" class="ui centered header">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        Calendars
+      </h3>
 
       <h3 class="ui header">
         <span class="one-four">Lunar Planner</span>
@@ -639,9 +660,48 @@
         <i>More info coming soon...</i>
       </p>
 
-      <h3 class="ui header">
-          <span class="four-four">About / Contact</span>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="calculator" class='ui centered header' style="margin: 1em;">
+        <i class="fa fa-calculator" aria-hidden="true"></i>
+        Lunar Day Calculator
       </h3>
+
+      <p>
+          Calculate the CyCal LuniSolar Day for any Western Gregorian Date.
+          I.e., enter your Western Birthdate to determine the CyCal Lunar Month
+          and Day of your birth.
+      </p>
+
+      <!--<iframe src="http://127.0.0.1:5000" class="lunarcalc-frame"></iframe>-->
+      <iframe src="https://blcpqfx35c.execute-api.us-west-2.amazonaws.com/production" class="lunarcalc-frame"></iframe>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="moonsletter" class="ui centered header" style="margin-bottom: 1em;">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+        Moonsletter
+      </h3>
+
+      <p>
+        Sign up for the CyCal Moonsletter (an email every New Moon) to learn
+        more in depth information about CyCal and lunisolar calendars and to
+        receive updates on upcoming calendars.
+      </p>
+
+      <center>
+      <iframe src="http://eepurl.com/cQiV9j" class="moonsletter-frame"></iframe>
+      </center>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="about" class="ui centered header" style="margin-bottom: 1em;">
+          <i class="fa fa-address-card" aria-hidden="true"></i>
+          About / Contact
+      </h3>
+
+      <img class="ui small circular left floated image" src="img/profile.png">
 
       <p>My name is Jeremiah.  I live on the western slope of the Cascades
         near the north-western coast of the US.  I'm trying to re-sync my personal
@@ -649,56 +709,7 @@
         me:
         <a href="mailto:jeremiah@cycalendars.com">jeremiah@cycalendars.com</a>.
       </p>
-
-      <!-- <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
-
-      <div style="text-align: center;">
-        <h2>
-          <span class="headerbg">
-            <span class="one-four-trans">Your schedule is your rhythm.</span><br>
-            <span class="two-four-trans">Your life is a song.</span><br>
-            <span class="three-four-trans">Stay in harmony.</span>
-          </span>
-        </h2>
-        <h3>
-          <span class="headerbg">
-            <span class="four-four-trans">Keep the beat.</span><br>
-          </span>
-        </h3>
-      </div> -->
 </div>
-
-  <!-- <div class="ui vertical stripe quote segment">
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column">
-          <h3>"What a Company"</h3>
-          <p>That is what they all say about us</p>
-        </div>
-        <div class="column">
-          <h3>"I shouldn't have gone with their competitor."</h3>
-          <p>
-            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui vertical stripe segment">
-    <div class="ui text container">
-      <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-      <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-      <a class="ui large button">Read More</a>
-      <h4 class="ui horizontal header divider">
-        <a href="#">Case Studies</a>
-      </h4>
-      <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-      <p>Yes I know you probably disregarded the earlier boasts as non-sequitor filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-      <a class="ui large button">I'm Still Quite Interested</a>
-    </div>
-  </div> -->
-
 
   <div class="ui vertical footer segment">
     <div class="ui text container">
@@ -709,47 +720,11 @@
           <nobr><span class='letter' style='background: #A5D6EE; color: #006FAF;'>C</span><span class='letter' style='background: #B4DDC2; color: #008648;'>y</span><span class='letter' style='background: #FBDD9C; color: #BB7E2B;'>C</span><span class='letter' style='background: #F8B0AC; color: #AF2643;'>a</span><span class='letter' style='background: #BDB0D7; color: #4b286D;'>l</span></nobr>
         </td>
         <td>
-          <!-- <div style="font-family: Lato; text-align:left; padding-left: 5px; font-weight: 300;">
-          <span style="line-height: 1em;">
-            Cyclic<br>
-            Calendars
-          </span>
-        </div> -->
         </td>
       </tr></table>
 
         <p>
             <small>© 2016-17 Jeremiah Konkle</small>
-            <!-- &nbsp;&nbsp;&middot;&nbsp;&nbsp; -->
-            <!-- <br>
-            <small><a class="ui inverted link" href="mailto:jeremiah@wylde.ventures">jeremiah@wylde.ventures</a></small> -->
-        </p>
-
-      <!-- <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="six wide column">
-          <h4 class="ui inverted header">About</h4>
-          <p>Copyright 2016 Jeremiah Konkle</p>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Sitemap</a>
-            <a href="#" class="item">Contact Us</a>
-            <a href="#" class="item">Religious Ceremonies</a>
-            <a href="#" class="item">Gazebo Plans</a>
-          </div>
-        </div>
-        <div class="six wide column">
-          <h4 class="ui inverted header">Services</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Banana Pre-Order</a>
-            <a href="#" class="item">DNA FAQ</a>
-            <a href="#" class="item">How To Access</a>
-            <a href="#" class="item">Favorite X-Men</a>
-          </div>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Footer Header</h4>
-          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>
