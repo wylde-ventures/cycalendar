@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta name="description" content="Traditional Solar / Lunar Calendar Wheel generated with modern astronomy algorithms and correlated with the 2016 Western Calendar.">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>CyCal - Cyclic Calendars</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,100' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+
+  <link rel="stylesheet"
+    href="css/weather-icons.min.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="../dist/components/site.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/container.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/grid.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/header.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/image.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/menu.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/divider.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/segment.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/list.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/transition.css"> -->
+
+  <style type="text/css">
+
+    .letter {
+      display: inline-block;
+      width: 1em;
+      height: 1.618em;
+      line-height: 1.617em;
+      text-align: center;
+      font-family: Raleway;
+      font-weight: 400;
+      font-size: 1.5em;
+      margin-right: 1px;
+    }
+
+    .ui.header {
+        font-family: "Raleway";
+        font-weight: 200;
+    }
+
+    .hidden.menu {
+      display: none;
+    }
+    .masthead.segment {
+      min-height: 625px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: 100;
+      font-family: "Raleway";
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: 100;
+      font-family: "Raleway";
+
+    }
+    .ui.vertical.stripe {
+      padding: 3em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+    .footer.segment {
+      padding: 2em 0em;
+      text-align: center;
+    }
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      /*.secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }*/
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+
+
+  </style>
+
+  <!-- <script src="assets/library/jquery.min.js"></script> -->
+  <!-- <script src="../dist/components/visibility.js"></script>
+  <script src="../dist/components/sidebar.js"></script>
+  <script src="../dist/components/transition.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+  <script>
+  $(document)
+    .ready(function() {
+
+      // show dropdown on hover
+      console.log($('.menu .ui.dropdown'));
+      $('.menu  .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+      $('#tz-form')
+        // .form({onSuccess: function(e) {alert("FOOBAR"); return false;}})
+        .form({
+          fields: {
+            'tz-form-timezone'     : 'empty',
+            'tz-form-likelyhood'   : 'empty',
+            'tz-form-email' : 'email',
+            // tz-form-name : ['minLength[6]', 'empty'],
+            // skills   : ['minCount[2]', 'empty'],
+            // terms    : 'checked'
+          },
+    //   }
+          onSuccess: postToGoogle,
+      })
+      ;
+    })
+  ;
+
+  function postToGoogle() {
+      var timezone = $('#tz-form-timezone').val();
+      var likelyhood = $('#tz-form-likelyhood').val();
+      var email = $('#tz-form-email').val();
+      var name = $('#tz-form-name').val();
+      var language = $('#tz-form-language').val();
+
+      $.ajax({
+          url: "https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/formResponse",
+          data: {"entry.143094632": timezone,
+                 "entry.226489406": likelyhood,
+                 "entry.1464954672": email,
+                 "entry.1452743891": name,
+                 "entry.1995265054": language},
+          type: "POST",
+          dataType: "xml",
+          statusCode: {
+              0: function(arg1, arg2, arg3) {
+                  console.log(0, arg1, arg2, arg3);
+                  //Success message
+              },
+              200: function(arg1, arg2, arg3) {
+                  console.log(200, arg1, arg2, arg3);
+                  //Success Message
+              }
+          }
+      });
+
+      $('#tz-form').slideUp();
+      $('#tz-form-response').slideDown();
+
+      return false;
+  }
+
+  //https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/viewform
+  </script>
+</head>
+<body>
+
+<!-- Following Menu -->
+<!-- <div class="ui large top fixed hidden menu">
+  <div class="ui container">
+    <a class="active item">Home</a>
+    <a class="item">Work</a>
+    <a class="item">Company</a>
+    <a class="item">Careers</a>
+    <div class="right menu">
+      <div class="item">
+        <a class="ui button">Log in</a>
+      </div>
+      <div class="item">
+        <a class="ui primary button">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Sidebar Menu -->
+<!-- <div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div> -->
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="hero-image ui vertical center aligned segment" style="padding-bottom: 0px;">
+
+    <div class="ui container">
+      <div class="ui large secondary pointing menu">
+        <!-- <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a> -->
+        <div class="header item">
+
+          <table><tr>
+            <td>
+              <nobr><span class='letter' style='background: #A5D6EE; color: #006FAF;'>C</span><span class='letter' style='background: #B4DDC2; color: #008648;'>y</span><span class='letter' style='background: #FBDD9C; color: #BB7E2B;'>C</span><span class='letter' style='background: #F8B0AC; color: #AF2643;'>a</span><span class='letter' style='background: #BDB0D7; color: #4b286D;'>l</span></nobr>
+            </td>
+            <td>
+              <div style="font-family: Raleway; text-align:left;">
+              Cyclic<br>
+              Calendars
+            </span>
+            </td>
+          </tr></table>
+
+          <!-- <span style='font-family: Raleway; font-weight: 200;'>
+              <span style='background: #0093D7;'>C</span>
+              <span style='background: #00A551;'>y</span>
+              <span style='background: #FBB416;'>C</span>
+              <span style='background: #EC1F4C;'>a</span>
+              <span style='background: #623591;'>l</span>
+          </span> -->
+
+
+            <!-- <span style='font-family: Raleway; font-weight: 200;'>
+                <span style='color: #0093D7;'>C</span>
+                <span style='color: #00A551;'>y</span>
+                <span style='color: #FBB416;'>C</span>
+                <span style='color: #EC1F4C;'>a</span>
+                <span style='color: #623591;'>l</span>
+            </span> -->
+        </div>
+
+        <!-- <a class="active item">Home</a> -->
+        <!-- <a class="item">Solar</a>
+        <a class="item">Lunar</a>
+        <a class="item">About</a> -->
+        <!-- <div class="right item">
+          <a class="item">Solar Calendar</a>
+          <a class="item">Lunar Calendar</a>
+          <a class="item">Lunar Planner</a>
+          <a class="item">About</a>
+        </div> -->
+
+        <a href="#" class="ui right floated dropdown item">
+        Dropdown <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Link Item</div>
+          <div class="item">Link Item</div>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu
+            <div class="menu">
+              <div class="item">Link Item</div>
+              <div class="item">Link Item</div>
+            </div>
+          </div>
+          <div class="item">Link Item</div>
+        </div>
+      </a>
+
+      </div>
+    </div>
+
+    <div class="ui container" style="position: relative;">
+        <img class="ui image" src="img/wheel-cropped.jpg" alt="2016 circular cyclic wheel calendar overview">
+        <div class=""
+                style='position: absolute; top: 50%; transform: translateY(-50%); width:100%;'>
+
+            <h1 style="text-align: center; margin-bottom: 0em;">
+                <span style='font-family: Raleway; font-weight: 200;'>
+                    Cyclic Calendar
+                    <!-- <span style='color: #0093D7;'>C</span>
+                    <span style='color: #00A551;'>y</span>
+                    <span style='color: #FBB416;'>C</span>
+                    <span style='color: #EC1F4C;'>a</span>
+                    <span style='color: #623591;'>l</span> -->
+                </span>
+
+            </h1>
+            <h2 style="text-align: center; font-family: Raleway; font-weight: 200; margin-top: 0em;">
+                2016<br><br>
+                <a href="#purchase" class="ui orange button">Order Print</a>
+            </h2>
+            <!-- <p>Cyclic Calendar<br>of the Solar Year</p> -->
+
+          <!-- <div>Solar Year</div> -->
+          <!-- <div class="ui huge primary button">Available Now &nbsp;&nbsp;<i class="down arrow icon"></i></div> -->
+        </div>
+
+    </div>
+
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+        <div style='text-align: center;'>
+
+          <iframe id="ytplayer" type="text/html" width="640" height="390"
+src="http://www.youtube.com/embed/xjkoNPq9tcg?&origin=http://example.com"
+frameborder="0"></iframe>
+
+            <h3 class="ui header">
+                The Solar Year
+            </h3>
+
+            <p class="ui small">
+                from the December Solstice<br>
+                Dec 22, 2015 ~ Dec 20, 2016
+            </p>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+  <div class="ui text container">
+      <h3 class="ui header">
+          Three Hundred Sixty-Five and a Quarter Days<br>
+          of Solar and Lunar Events
+      </h3>
+      <p>Traditional Solar / Lunar Calendar Wheel generated with modern astronomy algorithms and correlated with the 2016 Western Calendar.</p>
+      <div class="ui large relaxed list">
+          <div class="item">
+            <i class="icon" style="color: #0093D7;"><i class="wi wi-moon-waxing-crescent-4"></i></i>
+            <div class="content">
+              <div class="">Solstice, Equinox, and Cross-Quarter Moments</div>
+            </div>
+          </div>
+          <div class="item">
+              <i class="icon" style="color: #00A551;"><i class="wi wi-moon-waxing-gibbous-4"></i></i>
+            <div class="content">
+                <div class="">Western/Gregorian Months opposite Lunar Cycles</div>
+            </div>
+          </div>
+          <div class="item">
+              <i class="icon" style="color: #FBB416;"><i class="wi wi-moon-full"></i></i>
+            <div class="content">
+                <div class="">Eight Lunar Phase Moments per Lunar Cycle</div>
+            </div>
+          </div>
+          <div class="item">
+              <i class="icon" style="color: #EC1F4C;"><i class="wi wi-moon-waning-gibbous-2"></i></i>
+            <div class="content">
+              <div class="">Western Date and Weekday Rings</div>
+            </div>
+          </div>
+          <div class="item">
+              <i class="icon" style="color: #623591;"><i class="wi wi-moon-waning-crescent-2"></i></i>
+            <div class="content">
+              <div class="">Lunar Illumination Ring</div>
+            </div>
+          </div>
+          <div class="item">
+              <i class="icon" style="color: black;"><i class="wi wi-moon-new"></i></i>
+            <div class="content">
+              <div class="">Matched Color-Coding for all Cyclic Patterns</div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+      <div class="ui container" style="padding: 3em 0em;">
+            <img class="ui image" src="img/close-up.jpg" alt="2016 circular cyclic wheel calendar close-up.  Includes solstices, equinoxes, and lunar phases.">
+      </div>
+
+      <div class="ui text container">
+        <h3 class="ui header">
+            Large Format
+            Museum Quality Print
+        </h3>
+      </div>
+      <!-- <div class="ui container" style="padding: 3em 0em;">
+            <img class="ui image" src="img/close-up.jpg">
+      </div> -->
+      <div class="ui text container">
+        <p>24, 30, or 36 inch diameter wheel printed at 720dpi with archival
+            ink on your choice of quality paper.</p>
+      </div>
+
+    <!-- <div class="ui container">
+        <img class="ui image" src="img/close-up.jpg">
+    </div> -->
+
+  </div>
+
+  <a name="purchase"></a>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+      <h3 class="ui orange header">
+          Purchase for Your Timezone
+      </h3>
+      <p>Uniquely generated calendars for specific timezones.  Solar and
+          Lunar event moments are accurately represented for the timezone.</p>
+
+      <p>Print orders are fullfilled by FineArtAmerica.com.  Choose the purchase
+        link below for your timezone to customize
+        size and printing options.  Base price for 24" size is
+        <span style="color: #00b5ad; font-weight: strong;">$44.40</span>
+        + shipping.
+      </p>
+
+      <div class="ui header">Available Timezones</div>
+
+      <div class="ui large relaxed list">
+          <div class="item">
+            <i class="icon">
+              <nobr>
+                 <a class="ui orange button"
+                    href="2016/solaryear/america_new_york.html">
+                    Order Print</a>
+              </nobr>
+            </i>
+            <div class="content">
+              <div class="header">America/New York</div>
+              <div class="description">UTC-0500 (Eastern Standard Time)</div>
+            </div>
+          </div>
+          <div class="item">
+            <i class="icon">
+              <nobr>
+                 <a class="ui orange button"
+                    href="2016/solaryear/america_los_angeles.html">
+                    Order Print</a>
+              </nobr>
+            </i>
+            <div class="content">
+              <div class="header">America/Los Angeles</div>
+              <div class="description">UTC-0800 (Pacific Standard Time)</div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+      <h3 class="ui header">
+          Don't See Your Timezone's Calendar?
+      </h3>
+      <p>I'm actively generating more timezones.  Fill out the following
+      form and I'll generate one just for you!</p>
+
+      <form id="tz-form" class="ui form">
+         <div class="two fields">
+            <div class="field">
+                <label>Requested Timezone</label>
+                <select id="tz-form-timezone" class="ui fluid dropdown">
+                  <option value=""></option>
+                  <option value="Africa/Abidjan">Africa/Abidjan</option>
+                  <option value="Africa/Accra">Africa/Accra</option>
+                  <option value="Africa/Addis_Ababa">Africa/Addis Ababa</option>
+                  <option value="Africa/Algiers">Africa/Algiers</option>
+                  <option value="Africa/Asmara">Africa/Asmara</option>
+                  <option value="Africa/Bamako">Africa/Bamako</option>
+                  <option value="Africa/Bangui">Africa/Bangui</option>
+                  <option value="Africa/Banjul">Africa/Banjul</option>
+                  <option value="Africa/Bissau">Africa/Bissau</option>
+                  <option value="Africa/Blantyre">Africa/Blantyre</option>
+                  <option value="Africa/Brazzaville">Africa/Brazzaville</option>
+                  <option value="Africa/Bujumbura">Africa/Bujumbura</option>
+                  <option value="Africa/Cairo">Africa/Cairo</option>
+                  <option value="Africa/Casablanca">Africa/Casablanca</option>
+                  <option value="Africa/Ceuta">Africa/Ceuta</option>
+                  <option value="Africa/Conakry">Africa/Conakry</option>
+                  <option value="Africa/Dakar">Africa/Dakar</option>
+                  <option value="Africa/Dar_es_Salaam">Africa/Dar es Salaam</option>
+                  <option value="Africa/Djibouti">Africa/Djibouti</option>
+                  <option value="Africa/Douala">Africa/Douala</option>
+                  <option value="Africa/El_Aaiun">Africa/El Aaiun</option>
+                  <option value="Africa/Freetown">Africa/Freetown</option>
+                  <option value="Africa/Gaborone">Africa/Gaborone</option>
+                  <option value="Africa/Harare">Africa/Harare</option>
+                  <option value="Africa/Johannesburg">Africa/Johannesburg</option>
+                  <option value="Africa/Juba">Africa/Juba</option>
+                  <option value="Africa/Kampala">Africa/Kampala</option>
+                  <option value="Africa/Khartoum">Africa/Khartoum</option>
+                  <option value="Africa/Kigali">Africa/Kigali</option>
+                  <option value="Africa/Kinshasa">Africa/Kinshasa</option>
+                  <option value="Africa/Lagos">Africa/Lagos</option>
+                  <option value="Africa/Libreville">Africa/Libreville</option>
+                  <option value="Africa/Lome">Africa/Lome</option>
+                  <option value="Africa/Luanda">Africa/Luanda</option>
+                  <option value="Africa/Lubumbashi">Africa/Lubumbashi</option>
+                  <option value="Africa/Lusaka">Africa/Lusaka</option>
+                  <option value="Africa/Malabo">Africa/Malabo</option>
+                  <option value="Africa/Maputo">Africa/Maputo</option>
+                  <option value="Africa/Maseru">Africa/Maseru</option>
+                  <option value="Africa/Mbabane">Africa/Mbabane</option>
+                  <option value="Africa/Mogadishu">Africa/Mogadishu</option>
+                  <option value="Africa/Monrovia">Africa/Monrovia</option>
+                  <option value="Africa/Nairobi">Africa/Nairobi</option>
+                  <option value="Africa/Ndjamena">Africa/Ndjamena</option>
+                  <option value="Africa/Niamey">Africa/Niamey</option>
+                  <option value="Africa/Nouakchott">Africa/Nouakchott</option>
+                  <option value="Africa/Ouagadougou">Africa/Ouagadougou</option>
+                  <option value="Africa/Porto-Novo">Africa/Porto-Novo</option>
+                  <option value="Africa/Sao_Tome">Africa/Sao Tome</option>
+                  <option value="Africa/Tripoli">Africa/Tripoli</option>
+                  <option value="Africa/Tunis">Africa/Tunis</option>
+                  <option value="Africa/Windhoek">Africa/Windhoek</option>
+                  <option value="America/Adak">America/Adak</option>
+                  <option value="America/Anchorage">America/Anchorage</option>
+                  <option value="America/Anguilla">America/Anguilla</option>
+                  <option value="America/Antigua">America/Antigua</option>
+                  <option value="America/Araguaina">America/Araguaina</option>
+                  <option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos Aires</option>
+                  <option value="America/Argentina/Catamarca">America/Argentina/Catamarca</option>
+                  <option value="America/Argentina/Cordoba">America/Argentina/Cordoba</option>
+                  <option value="America/Argentina/Jujuy">America/Argentina/Jujuy</option>
+                  <option value="America/Argentina/La_Rioja">America/Argentina/La Rioja</option>
+                  <option value="America/Argentina/Mendoza">America/Argentina/Mendoza</option>
+                  <option value="America/Argentina/Rio_Gallegos">America/Argentina/Rio Gallegos</option>
+                  <option value="America/Argentina/Salta">America/Argentina/Salta</option>
+                  <option value="America/Argentina/San_Juan">America/Argentina/San Juan</option>
+                  <option value="America/Argentina/San_Luis">America/Argentina/San Luis</option>
+                  <option value="America/Argentina/Tucuman">America/Argentina/Tucuman</option>
+                  <option value="America/Argentina/Ushuaia">America/Argentina/Ushuaia</option>
+                  <option value="America/Aruba">America/Aruba</option>
+                  <option value="America/Asuncion">America/Asuncion</option>
+                  <option value="America/Atikokan">America/Atikokan</option>
+                  <option value="America/Bahia">America/Bahia</option>
+                  <option value="America/Bahia_Banderas">America/Bahia Banderas</option>
+                  <option value="America/Barbados">America/Barbados</option>
+                  <option value="America/Belem">America/Belem</option>
+                  <option value="America/Belize">America/Belize</option>
+                  <option value="America/Blanc-Sablon">America/Blanc-Sablon</option>
+                  <option value="America/Boa_Vista">America/Boa Vista</option>
+                  <option value="America/Bogota">America/Bogota</option>
+                  <option value="America/Boise">America/Boise</option>
+                  <option value="America/Cambridge_Bay">America/Cambridge Bay</option>
+                  <option value="America/Campo_Grande">America/Campo Grande</option>
+                  <option value="America/Cancun">America/Cancun</option>
+                  <option value="America/Caracas">America/Caracas</option>
+                  <option value="America/Cayenne">America/Cayenne</option>
+                  <option value="America/Cayman">America/Cayman</option>
+                  <option value="America/Chicago">America/Chicago</option>
+                  <option value="America/Chihuahua">America/Chihuahua</option>
+                  <option value="America/Costa_Rica">America/Costa Rica</option>
+                  <option value="America/Creston">America/Creston</option>
+                  <option value="America/Cuiaba">America/Cuiaba</option>
+                  <option value="America/Curacao">America/Curacao</option>
+                  <option value="America/Danmarkshavn">America/Danmarkshavn</option>
+                  <option value="America/Dawson">America/Dawson</option>
+                  <option value="America/Dawson_Creek">America/Dawson Creek</option>
+                  <option value="America/Denver">America/Denver</option>
+                  <option value="America/Detroit">America/Detroit</option>
+                  <option value="America/Dominica">America/Dominica</option>
+                  <option value="America/Edmonton">America/Edmonton</option>
+                  <option value="America/Eirunepe">America/Eirunepe</option>
+                  <option value="America/El_Salvador">America/El Salvador</option>
+                  <option value="America/Fort_Nelson">America/Fort Nelson</option>
+                  <option value="America/Fortaleza">America/Fortaleza</option>
+                  <option value="America/Glace_Bay">America/Glace Bay</option>
+                  <option value="America/Godthab">America/Godthab</option>
+                  <option value="America/Goose_Bay">America/Goose Bay</option>
+                  <option value="America/Grand_Turk">America/Grand Turk</option>
+                  <option value="America/Grenada">America/Grenada</option>
+                  <option value="America/Guadeloupe">America/Guadeloupe</option>
+                  <option value="America/Guatemala">America/Guatemala</option>
+                  <option value="America/Guayaquil">America/Guayaquil</option>
+                  <option value="America/Guyana">America/Guyana</option>
+                  <option value="America/Halifax">America/Halifax</option>
+                  <option value="America/Havana">America/Havana</option>
+                  <option value="America/Hermosillo">America/Hermosillo</option>
+                  <option value="America/Indiana/Indianapolis">America/Indiana/Indianapolis</option>
+                  <option value="America/Indiana/Knox">America/Indiana/Knox</option>
+                  <option value="America/Indiana/Marengo">America/Indiana/Marengo</option>
+                  <option value="America/Indiana/Petersburg">America/Indiana/Petersburg</option>
+                  <option value="America/Indiana/Tell_City">America/Indiana/Tell City</option>
+                  <option value="America/Indiana/Vevay">America/Indiana/Vevay</option>
+                  <option value="America/Indiana/Vincennes">America/Indiana/Vincennes</option>
+                  <option value="America/Indiana/Winamac">America/Indiana/Winamac</option>
+                  <option value="America/Inuvik">America/Inuvik</option>
+                  <option value="America/Iqaluit">America/Iqaluit</option>
+                  <option value="America/Jamaica">America/Jamaica</option>
+                  <option value="America/Juneau">America/Juneau</option>
+                  <option value="America/Kentucky/Louisville">America/Kentucky/Louisville</option>
+                  <option value="America/Kentucky/Monticello">America/Kentucky/Monticello</option>
+                  <option value="America/Kralendijk">America/Kralendijk</option>
+                  <option value="America/La_Paz">America/La Paz</option>
+                  <option value="America/Lima">America/Lima</option>
+                  <option value="America/Los_Angeles">America/Los Angeles</option>
+                  <option value="America/Lower_Princes">America/Lower Princes</option>
+                  <option value="America/Maceio">America/Maceio</option>
+                  <option value="America/Managua">America/Managua</option>
+                  <option value="America/Manaus">America/Manaus</option>
+                  <option value="America/Marigot">America/Marigot</option>
+                  <option value="America/Martinique">America/Martinique</option>
+                  <option value="America/Matamoros">America/Matamoros</option>
+                  <option value="America/Mazatlan">America/Mazatlan</option>
+                  <option value="America/Menominee">America/Menominee</option>
+                  <option value="America/Merida">America/Merida</option>
+                  <option value="America/Metlakatla">America/Metlakatla</option>
+                  <option value="America/Mexico_City">America/Mexico City</option>
+                  <option value="America/Miquelon">America/Miquelon</option>
+                  <option value="America/Moncton">America/Moncton</option>
+                  <option value="America/Monterrey">America/Monterrey</option>
+                  <option value="America/Montevideo">America/Montevideo</option>
+                  <option value="America/Montserrat">America/Montserrat</option>
+                  <option value="America/Nassau">America/Nassau</option>
+                  <option value="America/New_York">America/New York</option>
+                  <option value="America/Nipigon">America/Nipigon</option>
+                  <option value="America/Nome">America/Nome</option>
+                  <option value="America/Noronha">America/Noronha</option>
+                  <option value="America/North_Dakota/Beulah">America/North Dakota/Beulah</option>
+                  <option value="America/North_Dakota/Center">America/North Dakota/Center</option>
+                  <option value="America/North_Dakota/New_Salem">America/North Dakota/New Salem</option>
+                  <option value="America/Ojinaga">America/Ojinaga</option>
+                  <option value="America/Panama">America/Panama</option>
+                  <option value="America/Pangnirtung">America/Pangnirtung</option>
+                  <option value="America/Paramaribo">America/Paramaribo</option>
+                  <option value="America/Phoenix">America/Phoenix</option>
+                  <option value="America/Port-au-Prince">America/Port-au-Prince</option>
+                  <option value="America/Port_of_Spain">America/Port of Spain</option>
+                  <option value="America/Porto_Velho">America/Porto Velho</option>
+                  <option value="America/Puerto_Rico">America/Puerto Rico</option>
+                  <option value="America/Rainy_River">America/Rainy River</option>
+                  <option value="America/Rankin_Inlet">America/Rankin Inlet</option>
+                  <option value="America/Recife">America/Recife</option>
+                  <option value="America/Regina">America/Regina</option>
+                  <option value="America/Resolute">America/Resolute</option>
+                  <option value="America/Rio_Branco">America/Rio Branco</option>
+                  <option value="America/Santa_Isabel">America/Santa Isabel</option>
+                  <option value="America/Santarem">America/Santarem</option>
+                  <option value="America/Santiago">America/Santiago</option>
+                  <option value="America/Santo_Domingo">America/Santo Domingo</option>
+                  <option value="America/Sao_Paulo">America/Sao Paulo</option>
+                  <option value="America/Scoresbysund">America/Scoresbysund</option>
+                  <option value="America/Sitka">America/Sitka</option>
+                  <option value="America/St_Barthelemy">America/St Barthelemy</option>
+                  <option value="America/St_Johns">America/St Johns</option>
+                  <option value="America/St_Kitts">America/St Kitts</option>
+                  <option value="America/St_Lucia">America/St Lucia</option>
+                  <option value="America/St_Thomas">America/St Thomas</option>
+                  <option value="America/St_Vincent">America/St Vincent</option>
+                  <option value="America/Swift_Current">America/Swift Current</option>
+                  <option value="America/Tegucigalpa">America/Tegucigalpa</option>
+                  <option value="America/Thule">America/Thule</option>
+                  <option value="America/Thunder_Bay">America/Thunder Bay</option>
+                  <option value="America/Tijuana">America/Tijuana</option>
+                  <option value="America/Toronto">America/Toronto</option>
+                  <option value="America/Tortola">America/Tortola</option>
+                  <option value="America/Vancouver">America/Vancouver</option>
+                  <option value="America/Whitehorse">America/Whitehorse</option>
+                  <option value="America/Winnipeg">America/Winnipeg</option>
+                  <option value="America/Yakutat">America/Yakutat</option>
+                  <option value="America/Yellowknife">America/Yellowknife</option>
+                  <option value="Antarctica/Casey">Antarctica/Casey</option>
+                  <option value="Antarctica/Davis">Antarctica/Davis</option>
+                  <option value="Antarctica/DumontDUrville">Antarctica/DumontDUrville</option>
+                  <option value="Antarctica/Macquarie">Antarctica/Macquarie</option>
+                  <option value="Antarctica/Mawson">Antarctica/Mawson</option>
+                  <option value="Antarctica/McMurdo">Antarctica/McMurdo</option>
+                  <option value="Antarctica/Palmer">Antarctica/Palmer</option>
+                  <option value="Antarctica/Rothera">Antarctica/Rothera</option>
+                  <option value="Antarctica/Syowa">Antarctica/Syowa</option>
+                  <option value="Antarctica/Troll">Antarctica/Troll</option>
+                  <option value="Antarctica/Vostok">Antarctica/Vostok</option>
+                  <option value="Arctic/Longyearbyen">Arctic/Longyearbyen</option>
+                  <option value="Asia/Aden">Asia/Aden</option>
+                  <option value="Asia/Almaty">Asia/Almaty</option>
+                  <option value="Asia/Amman">Asia/Amman</option>
+                  <option value="Asia/Anadyr">Asia/Anadyr</option>
+                  <option value="Asia/Aqtau">Asia/Aqtau</option>
+                  <option value="Asia/Aqtobe">Asia/Aqtobe</option>
+                  <option value="Asia/Ashgabat">Asia/Ashgabat</option>
+                  <option value="Asia/Baghdad">Asia/Baghdad</option>
+                  <option value="Asia/Bahrain">Asia/Bahrain</option>
+                  <option value="Asia/Baku">Asia/Baku</option>
+                  <option value="Asia/Bangkok">Asia/Bangkok</option>
+                  <option value="Asia/Beirut">Asia/Beirut</option>
+                  <option value="Asia/Bishkek">Asia/Bishkek</option>
+                  <option value="Asia/Brunei">Asia/Brunei</option>
+                  <option value="Asia/Chita">Asia/Chita</option>
+                  <option value="Asia/Choibalsan">Asia/Choibalsan</option>
+                  <option value="Asia/Colombo">Asia/Colombo</option>
+                  <option value="Asia/Damascus">Asia/Damascus</option>
+                  <option value="Asia/Dhaka">Asia/Dhaka</option>
+                  <option value="Asia/Dili">Asia/Dili</option>
+                  <option value="Asia/Dubai">Asia/Dubai</option>
+                  <option value="Asia/Dushanbe">Asia/Dushanbe</option>
+                  <option value="Asia/Gaza">Asia/Gaza</option>
+                  <option value="Asia/Hebron">Asia/Hebron</option>
+                  <option value="Asia/Ho_Chi_Minh">Asia/Ho Chi Minh</option>
+                  <option value="Asia/Hong_Kong">Asia/Hong Kong</option>
+                  <option value="Asia/Hovd">Asia/Hovd</option>
+                  <option value="Asia/Irkutsk">Asia/Irkutsk</option>
+                  <option value="Asia/Jakarta">Asia/Jakarta</option>
+                  <option value="Asia/Jayapura">Asia/Jayapura</option>
+                  <option value="Asia/Jerusalem">Asia/Jerusalem</option>
+                  <option value="Asia/Kabul">Asia/Kabul</option>
+                  <option value="Asia/Kamchatka">Asia/Kamchatka</option>
+                  <option value="Asia/Karachi">Asia/Karachi</option>
+                  <option value="Asia/Kathmandu">Asia/Kathmandu</option>
+                  <option value="Asia/Khandyga">Asia/Khandyga</option>
+                  <option value="Asia/Kolkata">Asia/Kolkata</option>
+                  <option value="Asia/Krasnoyarsk">Asia/Krasnoyarsk</option>
+                  <option value="Asia/Kuala_Lumpur">Asia/Kuala Lumpur</option>
+                  <option value="Asia/Kuching">Asia/Kuching</option>
+                  <option value="Asia/Kuwait">Asia/Kuwait</option>
+                  <option value="Asia/Macau">Asia/Macau</option>
+                  <option value="Asia/Magadan">Asia/Magadan</option>
+                  <option value="Asia/Makassar">Asia/Makassar</option>
+                  <option value="Asia/Manila">Asia/Manila</option>
+                  <option value="Asia/Muscat">Asia/Muscat</option>
+                  <option value="Asia/Nicosia">Asia/Nicosia</option>
+                  <option value="Asia/Novokuznetsk">Asia/Novokuznetsk</option>
+                  <option value="Asia/Novosibirsk">Asia/Novosibirsk</option>
+                  <option value="Asia/Omsk">Asia/Omsk</option>
+                  <option value="Asia/Oral">Asia/Oral</option>
+                  <option value="Asia/Phnom_Penh">Asia/Phnom Penh</option>
+                  <option value="Asia/Pontianak">Asia/Pontianak</option>
+                  <option value="Asia/Pyongyang">Asia/Pyongyang</option>
+                  <option value="Asia/Qatar">Asia/Qatar</option>
+                  <option value="Asia/Qyzylorda">Asia/Qyzylorda</option>
+                  <option value="Asia/Rangoon">Asia/Rangoon</option>
+                  <option value="Asia/Riyadh">Asia/Riyadh</option>
+                  <option value="Asia/Sakhalin">Asia/Sakhalin</option>
+                  <option value="Asia/Samarkand">Asia/Samarkand</option>
+                  <option value="Asia/Seoul">Asia/Seoul</option>
+                  <option value="Asia/Shanghai">Asia/Shanghai</option>
+                  <option value="Asia/Singapore">Asia/Singapore</option>
+                  <option value="Asia/Srednekolymsk">Asia/Srednekolymsk</option>
+                  <option value="Asia/Taipei">Asia/Taipei</option>
+                  <option value="Asia/Tashkent">Asia/Tashkent</option>
+                  <option value="Asia/Tbilisi">Asia/Tbilisi</option>
+                  <option value="Asia/Tehran">Asia/Tehran</option>
+                  <option value="Asia/Thimphu">Asia/Thimphu</option>
+                  <option value="Asia/Tokyo">Asia/Tokyo</option>
+                  <option value="Asia/Ulaanbaatar">Asia/Ulaanbaatar</option>
+                  <option value="Asia/Urumqi">Asia/Urumqi</option>
+                  <option value="Asia/Ust-Nera">Asia/Ust-Nera</option>
+                  <option value="Asia/Vientiane">Asia/Vientiane</option>
+                  <option value="Asia/Vladivostok">Asia/Vladivostok</option>
+                  <option value="Asia/Yakutsk">Asia/Yakutsk</option>
+                  <option value="Asia/Yekaterinburg">Asia/Yekaterinburg</option>
+                  <option value="Asia/Yerevan">Asia/Yerevan</option>
+                  <option value="Atlantic/Azores">Atlantic/Azores</option>
+                  <option value="Atlantic/Bermuda">Atlantic/Bermuda</option>
+                  <option value="Atlantic/Canary">Atlantic/Canary</option>
+                  <option value="Atlantic/Cape_Verde">Atlantic/Cape Verde</option>
+                  <option value="Atlantic/Faroe">Atlantic/Faroe</option>
+                  <option value="Atlantic/Madeira">Atlantic/Madeira</option>
+                  <option value="Atlantic/Reykjavik">Atlantic/Reykjavik</option>
+                  <option value="Atlantic/South_Georgia">Atlantic/South Georgia</option>
+                  <option value="Atlantic/St_Helena">Atlantic/St Helena</option>
+                  <option value="Atlantic/Stanley">Atlantic/Stanley</option>
+                  <option value="Australia/Adelaide">Australia/Adelaide</option>
+                  <option value="Australia/Brisbane">Australia/Brisbane</option>
+                  <option value="Australia/Broken_Hill">Australia/Broken Hill</option>
+                  <option value="Australia/Currie">Australia/Currie</option>
+                  <option value="Australia/Darwin">Australia/Darwin</option>
+                  <option value="Australia/Eucla">Australia/Eucla</option>
+                  <option value="Australia/Hobart">Australia/Hobart</option>
+                  <option value="Australia/Lindeman">Australia/Lindeman</option>
+                  <option value="Australia/Lord_Howe">Australia/Lord Howe</option>
+                  <option value="Australia/Melbourne">Australia/Melbourne</option>
+                  <option value="Australia/Perth">Australia/Perth</option>
+                  <option value="Australia/Sydney">Australia/Sydney</option>
+                  <option value="Canada/Atlantic">Canada/Atlantic</option>
+                  <option value="Canada/Central">Canada/Central</option>
+                  <option value="Canada/Eastern">Canada/Eastern</option>
+                  <option value="Canada/Mountain">Canada/Mountain</option>
+                  <option value="Canada/Newfoundland">Canada/Newfoundland</option>
+                  <option value="Canada/Pacific">Canada/Pacific</option>
+                  <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                  <option value="Europe/Andorra">Europe/Andorra</option>
+                  <option value="Europe/Athens">Europe/Athens</option>
+                  <option value="Europe/Belgrade">Europe/Belgrade</option>
+                  <option value="Europe/Berlin">Europe/Berlin</option>
+                  <option value="Europe/Bratislava">Europe/Bratislava</option>
+                  <option value="Europe/Brussels">Europe/Brussels</option>
+                  <option value="Europe/Bucharest">Europe/Bucharest</option>
+                  <option value="Europe/Budapest">Europe/Budapest</option>
+                  <option value="Europe/Busingen">Europe/Busingen</option>
+                  <option value="Europe/Chisinau">Europe/Chisinau</option>
+                  <option value="Europe/Copenhagen">Europe/Copenhagen</option>
+                  <option value="Europe/Dublin">Europe/Dublin</option>
+                  <option value="Europe/Gibraltar">Europe/Gibraltar</option>
+                  <option value="Europe/Guernsey">Europe/Guernsey</option>
+                  <option value="Europe/Helsinki">Europe/Helsinki</option>
+                  <option value="Europe/Isle_of_Man">Europe/Isle of Man</option>
+                  <option value="Europe/Istanbul">Europe/Istanbul</option>
+                  <option value="Europe/Jersey">Europe/Jersey</option>
+                  <option value="Europe/Kaliningrad">Europe/Kaliningrad</option>
+                  <option value="Europe/Kiev">Europe/Kiev</option>
+                  <option value="Europe/Lisbon">Europe/Lisbon</option>
+                  <option value="Europe/Ljubljana">Europe/Ljubljana</option>
+                  <option value="Europe/London">Europe/London</option>
+                  <option value="Europe/Luxembourg">Europe/Luxembourg</option>
+                  <option value="Europe/Madrid">Europe/Madrid</option>
+                  <option value="Europe/Malta">Europe/Malta</option>
+                  <option value="Europe/Mariehamn">Europe/Mariehamn</option>
+                  <option value="Europe/Minsk">Europe/Minsk</option>
+                  <option value="Europe/Monaco">Europe/Monaco</option>
+                  <option value="Europe/Moscow">Europe/Moscow</option>
+                  <option value="Europe/Oslo">Europe/Oslo</option>
+                  <option value="Europe/Paris">Europe/Paris</option>
+                  <option value="Europe/Podgorica">Europe/Podgorica</option>
+                  <option value="Europe/Prague">Europe/Prague</option>
+                  <option value="Europe/Riga">Europe/Riga</option>
+                  <option value="Europe/Rome">Europe/Rome</option>
+                  <option value="Europe/Samara">Europe/Samara</option>
+                  <option value="Europe/San_Marino">Europe/San Marino</option>
+                  <option value="Europe/Sarajevo">Europe/Sarajevo</option>
+                  <option value="Europe/Simferopol">Europe/Simferopol</option>
+                  <option value="Europe/Skopje">Europe/Skopje</option>
+                  <option value="Europe/Sofia">Europe/Sofia</option>
+                  <option value="Europe/Stockholm">Europe/Stockholm</option>
+                  <option value="Europe/Tallinn">Europe/Tallinn</option>
+                  <option value="Europe/Tirane">Europe/Tirane</option>
+                  <option value="Europe/Uzhgorod">Europe/Uzhgorod</option>
+                  <option value="Europe/Vaduz">Europe/Vaduz</option>
+                  <option value="Europe/Vatican">Europe/Vatican</option>
+                  <option value="Europe/Vienna">Europe/Vienna</option>
+                  <option value="Europe/Vilnius">Europe/Vilnius</option>
+                  <option value="Europe/Volgograd">Europe/Volgograd</option>
+                  <option value="Europe/Warsaw">Europe/Warsaw</option>
+                  <option value="Europe/Zagreb">Europe/Zagreb</option>
+                  <option value="Europe/Zaporozhye">Europe/Zaporozhye</option>
+                  <option value="Europe/Zurich">Europe/Zurich</option>
+                  <option value="GMT">GMT</option>
+                  <option value="Indian/Antananarivo">Indian/Antananarivo</option>
+                  <option value="Indian/Chagos">Indian/Chagos</option>
+                  <option value="Indian/Christmas">Indian/Christmas</option>
+                  <option value="Indian/Cocos">Indian/Cocos</option>
+                  <option value="Indian/Comoro">Indian/Comoro</option>
+                  <option value="Indian/Kerguelen">Indian/Kerguelen</option>
+                  <option value="Indian/Mahe">Indian/Mahe</option>
+                  <option value="Indian/Maldives">Indian/Maldives</option>
+                  <option value="Indian/Mauritius">Indian/Mauritius</option>
+                  <option value="Indian/Mayotte">Indian/Mayotte</option>
+                  <option value="Indian/Reunion">Indian/Reunion</option>
+                  <option value="Pacific/Apia">Pacific/Apia</option>
+                  <option value="Pacific/Auckland">Pacific/Auckland</option>
+                  <option value="Pacific/Bougainville">Pacific/Bougainville</option>
+                  <option value="Pacific/Chatham">Pacific/Chatham</option>
+                  <option value="Pacific/Chuuk">Pacific/Chuuk</option>
+                  <option value="Pacific/Easter">Pacific/Easter</option>
+                  <option value="Pacific/Efate">Pacific/Efate</option>
+                  <option value="Pacific/Enderbury">Pacific/Enderbury</option>
+                  <option value="Pacific/Fakaofo">Pacific/Fakaofo</option>
+                  <option value="Pacific/Fiji">Pacific/Fiji</option>
+                  <option value="Pacific/Funafuti">Pacific/Funafuti</option>
+                  <option value="Pacific/Galapagos">Pacific/Galapagos</option>
+                  <option value="Pacific/Gambier">Pacific/Gambier</option>
+                  <option value="Pacific/Guadalcanal">Pacific/Guadalcanal</option>
+                  <option value="Pacific/Guam">Pacific/Guam</option>
+                  <option value="Pacific/Honolulu">Pacific/Honolulu</option>
+                  <option value="Pacific/Johnston">Pacific/Johnston</option>
+                  <option value="Pacific/Kiritimati">Pacific/Kiritimati</option>
+                  <option value="Pacific/Kosrae">Pacific/Kosrae</option>
+                  <option value="Pacific/Kwajalein">Pacific/Kwajalein</option>
+                  <option value="Pacific/Majuro">Pacific/Majuro</option>
+                  <option value="Pacific/Marquesas">Pacific/Marquesas</option>
+                  <option value="Pacific/Midway">Pacific/Midway</option>
+                  <option value="Pacific/Nauru">Pacific/Nauru</option>
+                  <option value="Pacific/Niue">Pacific/Niue</option>
+                  <option value="Pacific/Norfolk">Pacific/Norfolk</option>
+                  <option value="Pacific/Noumea">Pacific/Noumea</option>
+                  <option value="Pacific/Pago_Pago">Pacific/Pago Pago</option>
+                  <option value="Pacific/Palau">Pacific/Palau</option>
+                  <option value="Pacific/Pitcairn">Pacific/Pitcairn</option>
+                  <option value="Pacific/Pohnpei">Pacific/Pohnpei</option>
+                  <option value="Pacific/Port_Moresby">Pacific/Port Moresby</option>
+                  <option value="Pacific/Rarotonga">Pacific/Rarotonga</option>
+                  <option value="Pacific/Saipan">Pacific/Saipan</option>
+                  <option value="Pacific/Tahiti">Pacific/Tahiti</option>
+                  <option value="Pacific/Tarawa">Pacific/Tarawa</option>
+                  <option value="Pacific/Tongatapu">Pacific/Tongatapu</option>
+                  <option value="Pacific/Wake">Pacific/Wake</option>
+                  <option value="Pacific/Wallis">Pacific/Wallis</option>
+                  <option value="US/Alaska">US/Alaska</option>
+                  <option value="US/Arizona">US/Arizona</option>
+                  <option value="US/Central">US/Central</option>
+                  <option value="US/Eastern">US/Eastern</option>
+                  <option value="US/Hawaii">US/Hawaii</option>
+                  <option value="US/Mountain">US/Mountain</option>
+                  <option value="US/Pacific">US/Pacific</option>
+                  <option value="UTC">UTC</option>
+              </select>
+              </div>
+              <div class="field">
+                  <label>How likely are you to purchase?</label>
+                  <select id="tz-form-likelyhood" class="ui fluid dropdown">
+                    <option value=""></option>
+                    <option value="4">Certain</option>
+                    <option value="3">Very Likely</option>
+                    <option value="2">Still Considering</option>
+                    <option value="1">Not Likely</option>
+                  </select>
+                </div>
+          </div>
+          <div class="two fields">
+             <div class="field">
+                 <label>Your Email</label>
+                 <input id="tz-form-email" type="text"></input>
+               </div>
+               <div class="field">
+                   <label>Your Name</label>
+                   <input id="tz-form-name" type="text"></input>
+                 </div>
+           </div>
+          <div class="field">
+              <label>Prefered Language for Calendar Dates and Times</label>
+              <input id="tz-form-language" type="text"></input>
+            </div>
+
+           <!-- <button class="ui grey button" onclick="postToGoogle(); return false;">Submit</button> -->
+           <div class="ui grey submit button">Submit</div>
+
+           <div class="ui error message">
+             </div>
+
+      </form>
+
+      <div id="tz-form-response" class="ui hidden success message">
+          Request Submitted.
+      </div>
+
+
+      <p><small>You will receive a notification by email when your selected
+          timezone is available for purchase.<small></p>
+
+    </div>
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+      <h3 class="ui header">
+          About / Contact
+      </h3>
+
+      <p>My name is Jeremiah.  I live on the western slope of the Cascades
+        near the north-western coast of the US.  I'm trying to re-sync my personal
+        rhythm with the natural rhythms of this planet.  Feel free to contact
+        me:
+        <a href="mailto:jeremiah@wylde.ventures">jeremiah@wylde.ventures</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- <div class="ui vertical stripe quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>"What a Company"</h3>
+          <p>That is what they all say about us</p>
+        </div>
+        <div class="column">
+          <h3>"I shouldn't have gone with their competitor."</h3>
+          <p>
+            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+      <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+      <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
+      <a class="ui large button">Read More</a>
+      <h4 class="ui horizontal header divider">
+        <a href="#">Case Studies</a>
+      </h4>
+      <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+      <p>Yes I know you probably disregarded the earlier boasts as non-sequitor filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+      <a class="ui large button">I'm Still Quite Interested</a>
+    </div>
+  </div> -->
+
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui text container">
+        <p>
+            <span style='font-family: Raleway; font-weight: 200;'>
+                <!-- CyCal  -->
+                <span style='color: #0093D7;'>C</span>
+                <span style='color: #00A551;'>y</span>
+                <span style='color: #FBB416;'>C</span>
+                <span style='color: #EC1F4C;'>a</span>
+                <span style='color: #623591;'>l</span>
+                Cyclic Calendars
+            </span><br>
+            <small>Copyright 2016 Jeremiah Konkle</small>
+            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+            <small><a class="ui inverted link" href="mailto:jeremiah@wylde.ventures">jeremiah@wylde.ventures</a></small>
+        </p>
+
+      <!-- <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="six wide column">
+          <h4 class="ui inverted header">About</h4>
+          <p>Copyright 2016 Jeremiah Konkle</p>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Sitemap</a>
+            <a href="#" class="item">Contact Us</a>
+            <a href="#" class="item">Religious Ceremonies</a>
+            <a href="#" class="item">Gazebo Plans</a>
+          </div>
+        </div>
+        <div class="six wide column">
+          <h4 class="ui inverted header">Services</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Banana Pre-Order</a>
+            <a href="#" class="item">DNA FAQ</a>
+            <a href="#" class="item">How To Access</a>
+            <a href="#" class="item">Favorite X-Men</a>
+          </div>
+        </div>
+        <div class="seven wide column">
+          <h4 class="ui inverted header">Footer Header</h4>
+          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58424545-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>

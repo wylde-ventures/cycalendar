@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta name="description" content="Traditional Solar / Lunar Calendar Wheel generated with modern astronomy algorithms and correlated with the 2016 Western Calendar.">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>CyCal - Cyclic Calendars</title>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,100' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+
+  <link rel="stylesheet"
+    href="css/weather-icons.min.css">
+
+  <!-- <link rel="stylesheet" type="text/css" href="../dist/components/site.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/container.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/grid.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/header.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/image.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/menu.css">
+
+  <link rel="stylesheet" type="text/css" href="../dist/components/divider.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/segment.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/list.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="../dist/components/transition.css"> -->
+
+  <style type="text/css">
+
+    .one-hover:hover {
+      background: #9DDCF7 !important;
+      color: #0089C4 !important;
+    }
+
+    .two-hover:hover {
+      background: #C5E0A5 !important;
+      color: #69913D !important;
+    }
+
+    .three-hover:hover {
+      background: #F9B6A5 !important;
+      color: #AB2926 !important;
+    }
+
+    .four-hover:hover {
+      background: #CCB7D9 !important;
+      color: #662A78 !important;
+    }
+
+
+    .one-four-trans {
+      background: rgba(157,220,247,0.7) !important;
+      color: #0089C4 !important;
+      display: inline-block;
+      padding: 3px;
+      margin: 3px;
+    }
+
+    .two-four-trans {
+      background: #C5E0A5 !important;
+      color: #69913D !important;
+      padding: 3px;
+      margin: 3px;
+      display: inline-block;
+    }
+
+    .three-four-trans {
+      background: #F9B6A5 !important;
+      color: #AB2926 !important;
+      padding: 3px;
+      margin: 3px;
+      display: inline-block;
+    }
+
+    .four-four-trans {
+      background: #CCB7D9 !important;
+      color: #662A78 !important;
+      padding: 3px;
+      margin: 3px;
+      display: inline-block;
+    }
+
+
+    .one-four {
+      background: rgba(157,220,247,1.0) !important;
+      color: #0089C4 !important;
+      display: inline-block;
+    }
+
+    .two-four {
+      background: #C5E0A5 !important;
+      color: #69913D !important;
+      display: inline-block;
+    }
+
+    .three-four {
+      background: #F9B6A5 !important;
+      color: #AB2926 !important;
+      display: inline-block;
+    }
+
+    .four-four {
+      background: #CCB7D9 !important;
+      color: #662A78 !important;
+      display: inline-block;
+    }
+
+
+    .letter {
+      display: inline-block;
+      width: 1em;
+      height: 1.618em;
+      line-height: 1.617em;
+      text-align: center;
+      font-family: Raleway;
+      font-weight: 400;
+      font-size: 1.5em;
+      margin-right: 1px;
+    }
+
+    .ui.header {
+        font-family: "Raleway";
+        font-weight: 200;
+    }
+
+    .hidden.menu {
+      display: none;
+    }
+    .masthead.segment {
+      min-height: 625px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: 100;
+      font-family: "Raleway";
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: 100;
+      font-family: "Raleway";
+
+    }
+    .ui.vertical.stripe {
+      padding: 3em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 2em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+    .footer.segment {
+      padding: 2em 0em;
+      text-align: center;
+    }
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      /*.secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }*/
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+
+    .headerbg {
+      font-family: Raleway;
+    }
+
+
+    .east {
+      background: #ACDAC3; color: #008750;
+    }
+
+    .south {
+      background: #FBDD9C; color: #BB7E2B;
+    }
+
+    .west {
+      background: #F8B6C4; color: #A72255;
+    }
+
+    .north {
+      background: #A4C2E6; color: #1D4486;
+    }
+
+    .lunarcalc-frame {
+      width: 100%;
+      height: 350px;
+      border: none;
+    }
+
+    .moonsletter-frame {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      height: 500px;
+      border: none;
+    }
+
+
+  </style>
+
+  <!-- <script src="assets/library/jquery.min.js"></script> -->
+  <!-- <script src="../dist/components/visibility.js"></script>
+  <script src="../dist/components/sidebar.js"></script>
+  <script src="../dist/components/transition.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+  <script>
+  $(document)
+    .ready(function() {
+
+      // show dropdown on hover
+      console.log($('.menu .ui.dropdown'));
+      $('.menu  .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+      $('#tz-form')
+        // .form({onSuccess: function(e) {alert("FOOBAR"); return false;}})
+        .form({
+          fields: {
+            'tz-form-timezone'     : 'empty',
+            'tz-form-likelyhood'   : 'empty',
+            'tz-form-email' : 'email',
+            // tz-form-name : ['minLength[6]', 'empty'],
+            // skills   : ['minCount[2]', 'empty'],
+            // terms    : 'checked'
+          },
+    //   }
+          onSuccess: postToGoogle,
+      })
+      ;
+    })
+  ;
+
+  function postToGoogle() {
+      var timezone = $('#tz-form-timezone').val();
+      var likelyhood = $('#tz-form-likelyhood').val();
+      var email = $('#tz-form-email').val();
+      var name = $('#tz-form-name').val();
+      var language = $('#tz-form-language').val();
+
+      $.ajax({
+          url: "https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/formResponse",
+          data: {"entry.143094632": timezone,
+                 "entry.226489406": likelyhood,
+                 "entry.1464954672": email,
+                 "entry.1452743891": name,
+                 "entry.1995265054": language},
+          type: "POST",
+          dataType: "xml",
+          statusCode: {
+              0: function(arg1, arg2, arg3) {
+                  console.log(0, arg1, arg2, arg3);
+                  //Success message
+              },
+              200: function(arg1, arg2, arg3) {
+                  console.log(200, arg1, arg2, arg3);
+                  //Success Message
+              }
+          }
+      });
+
+      $('#tz-form').slideUp();
+      $('#tz-form-response').slideDown();
+
+      return false;
+  }
+
+  //https://docs.google.com/forms/d/1H-5i--5YqdAl77HMV-M3HXW-uT-aB-XL0B3Tds227M8/viewform
+  </script>
+</head>
+<body>
+
+<!-- Following Menu -->
+<!-- <div class="ui large top fixed hidden menu">
+  <div class="ui container">
+    <a class="active item">Home</a>
+    <a class="item">Work</a>
+    <a class="item">Company</a>
+    <a class="item">Careers</a>
+    <div class="right menu">
+      <div class="item">
+        <a class="ui button">Log in</a>
+      </div>
+      <div class="item">
+        <a class="ui primary button">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Sidebar Menu -->
+<!-- <div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div> -->
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="hero-image ui vertical center aligned segment" style="padding-bottom: 0px;">
+
+    <div class="ui container">
+      <div class="ui large secondary pointing menu">
+        <!-- <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a> -->
+        <div class="header item">
+
+          <table><tr>
+            <td>
+              <nobr><span class='letter' style='background: #A5D6EE; color: #006FAF;'>C</span><span class='letter' style='background: #B4DDC2; color: #008648;'>y</span><span class='letter' style='background: #FBDD9C; color: #BB7E2B;'>C</span><span class='letter' style='background: #F8B0AC; color: #AF2643;'>a</span><span class='letter' style='background: #BDB0D7; color: #4b286D;'>l</span></nobr>
+            </td>
+            <td>
+              <div style="font-family: Lato; text-align:left; padding-left: 5px; font-weight: 300;">
+              Cyclic<br>
+              Calendars
+            </span>
+            </td>
+          </tr></table>
+
+          <!-- <span style='font-family: Raleway; font-weight: 200;'>
+              <span style='background: #0093D7;'>C</span>
+              <span style='background: #00A551;'>y</span>
+              <span style='background: #FBB416;'>C</span>
+              <span style='background: #EC1F4C;'>a</span>
+              <span style='background: #623591;'>l</span>
+          </span> -->
+
+
+            <!-- <span style='font-family: Raleway; font-weight: 200;'>
+                <span style='color: #0093D7;'>C</span>
+                <span style='color: #00A551;'>y</span>
+                <span style='color: #FBB416;'>C</span>
+                <span style='color: #EC1F4C;'>a</span>
+                <span style='color: #623591;'>l</span>
+            </span> -->
+        </div>
+
+        <!-- <a class="active item">Home</a> -->
+        <!-- <a class="item">Solar</a>
+        <a class="item">Lunar</a>
+        <a class="item">About</a> -->
+        <div class="right item">
+          <a class="item one-hover" href="#calendars">Calendars</a>
+          <a class="item two-hover" href="#calculator">Lunar Day Calculator</a>
+          <a class="item three-hover" href="#moonsletter">Moonsletter</a>
+          <a class="item four-hover" href="#about">About</a>
+        </div>
+
+          <!--
+          background: #9DDCF7; color: #0089C4;
+          background: #C5E0A5; color: #69913D;
+          background: #F9B6A5; color: #AB2926;
+          background: #CCB7D9; color: #662A78;
+        -->
+
+        <!-- <a href="#" class="ui right floated dropdown item">
+        Dropdown <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Link Item</div>
+          <div class="item">Link Item</div>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu
+            <div class="menu">
+              <div class="item">Link Item</div>
+              <div class="item">Link Item</div>
+            </div>
+          </div>
+          <div class="item">Link Item</div>
+        </div>
+      </a> -->
+
+      </div>
+    </div>
+
+    <div class="ui container" style="position: relative;">
+        <img class="ui image" src="img/wheel-cropped.jpg" alt="2016 circular cyclic wheel calendar overview">
+        <div class=""
+                style='position: absolute; top: 50%; transform: translateY(-50%); width:100%;'>
+
+            <!-- <h1 style="text-align: center; margin-bottom: 0em;">
+                <span style='font-family: Raleway; font-weight: 200;'>
+                    Cyclic Calendar -->
+                    <!-- <span style='color: #0093D7;'>C</span>
+                    <span style='color: #00A551;'>y</span>
+                    <span style='color: #FBB416;'>C</span>
+                    <span style='color: #EC1F4C;'>a</span>
+                    <span style='color: #623591;'>l</span> -->
+                <!-- </span>
+
+            </h1>
+            <h2 style="text-align: center; font-family: Raleway; font-weight: 200; margin-top: 0em;">
+                2016<br><br>
+                <a href="#purchase" class="ui orange button">Order Print</a>
+            </h2> -->
+            <!-- <p>Cyclic Calendar<br>of the Solar Year</p> -->
+
+            <h3>
+              <span class="headerbg">
+                <span class="one-four-trans">Your schedule is your rhythm.</span><br>
+                <span class="two-four-trans">Your life is a song.</span><br>
+                <span class="three-four-trans">Stay in harmony.</span>
+              </span>
+            </h3>
+            <h2>
+              <span class="headerbg">
+                <span class="four-four-trans">Keep the beat.</span><br>
+              </span>
+            </h2>
+
+            <!-- <div style='width: 300px; height: 51.776px; margin-bottom: 15px;'>
+              <span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #A2CFEF; color: #00609C; margin-right: 1px;'>C</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #A6DCDF; color: #00858C; margin-right: 1px;'>a</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #B4DDC2; color: #008648; margin-right: 1px;'>l</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #DBE9A8; color: #83953A; margin-right: 1px;'>e</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #FBDD9C; color: #BB7E2B; margin-right: 1px;'>n</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #F9B6A5; color: #AB2926; margin-right: 1px;'>d</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #F8B3B9; color: #A8234B; margin-right: 1px;'>a</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #D1B3D5; color: #7C2774; margin-right: 1px;'>r</span><span style='font-size: 31.997568px; display: inline-block; line-height: 51.776px; text-align: center; width: 32px; height: 51.776px; background: #ADC3E2; color: #293875; margin-right: 0px;'>s</span>
+            </div> -->
+
+          <!-- <div>Solar Year</div> -->
+          <!-- <div class="ui huge primary button">Available Now &nbsp;&nbsp;<i class="down arrow icon"></i></div> -->
+        </div>
+
+    </div>
+
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+
+      <div style='width: 300px; height: 119.732px; margin-bottom: 15px; margin: auto;'>
+        <span style='font-size: 73.994376px; display: inline-block; line-height: 119.732px; text-align: center; width: 74px; height: 119.732px; background: #9DDCF7; color: #0089C4; margin-right: 1px;'>2</span><span style='font-size: 73.994376px; display: inline-block; line-height: 119.732px; text-align: center; width: 74px; height: 119.732px; background: #C5E0A5; color: #69913D; margin-right: 1px;'>0</span><span style='font-size: 73.994376px; display: inline-block; line-height: 119.732px; text-align: center; width: 74px; height: 119.732px; background: #F9B6A5; color: #AB2926; margin-right: 1px;'>1</span><span style='font-size: 73.994376px; display: inline-block; line-height: 119.732px; text-align: center; width: 74px; height: 119.732px; background: #CCB7D9; color: #662A78; margin-right: 0px;'>7</span>
+      </div>
+
+      <h3 class="ui header" style="text-align: center;">
+          Cyclic Calendars
+      </h3>
+
+      <p style="text-align: center;">Delightfully designed to sync up your schedule with natural rhythms.</p>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+
+      <div id='product-component-b5b1d3fa325'></div>
+      <script type="text/javascript">
+      /*<![CDATA[*/
+
+      (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) {
+            ShopifyBuyInit();
+          } else {
+            loadScript();
+          }
+        } else {
+          loadScript();
+        }
+
+        function loadScript() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = scriptURL;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+          script.onload = ShopifyBuyInit;
+        }
+
+        function ShopifyBuyInit() {
+          var client = ShopifyBuy.buildClient({
+            domain: 'cycal-cyclic-calendars.myshopify.com',
+            apiKey: 'e049f87d20d18b16fc365ad8d7a04dca',
+            appId: '6',
+          });
+
+          ShopifyBuy.UI.onReady(client).then(function (ui) {
+            ui.createComponent('product', {
+              id: [307008307241],
+              node: document.getElementById('product-component-b5b1d3fa325'),
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: {
+        "product": {
+          "variantId": "all",
+          "contents": {
+            "imgWithCarousel": false,
+            "variantTitle": false,
+            "description": false,
+            "buttonWithQuantity": false,
+            "quantity": false
+          },
+          "styles": {
+            "product": {
+              "@media (min-width: 601px)": {
+                "max-width": "100%",
+                "margin-left": "0",
+                "margin-bottom": "50px"
+              }
+            },
+            "compareAt": {
+              "font-size": "12px"
+            }
+          }
+        },
+        "cart": {
+          "contents": {
+            "button": true
+          },
+          "styles": {
+            "footer": {
+              "background-color": "#ffffff"
+            }
+          }
+        },
+        "modalProduct": {
+          "contents": {
+            "img": false,
+            "imgWithCarousel": true,
+            "variantTitle": false,
+            "buttonWithQuantity": true,
+            "button": false,
+            "quantity": false
+          },
+          "styles": {
+            "product": {
+              "@media (min-width: 601px)": {
+                "max-width": "100%",
+                "margin-left": "0px",
+                "margin-bottom": "0px"
+              }
+            }
+          }
+        },
+        "productSet": {
+          "styles": {
+            "products": {
+              "@media (min-width: 601px)": {
+                "margin-left": "-20px"
+              }
+            }
+          }
+        }
+      }
+            });
+          });
+        }
+      })();
+      /*]]>*/
+      </script>
+
+
+      <p>
+        CyCal's cyclic calendars are modeled directly on the rhythmic cycles of nature and
+        are made to inspire the <b>harmonic scheduling</b> of life’s events.
+      </p>
+
+      <p>Using calendars based on natural cycles helps to <b>reorient</b> our contextual
+        perspective of time.</p>
+
+      <p>
+        When we start scheduling in this way our sense of <b>where we are in
+        time</b> can become rhythmically oriented to the natural cycles that
+        are all around us.
+      </p>
+
+      <p>
+        It's natural to start noticing the correlations in "felt sense" of
+      <span class="east">morning</span>, the <span class="east">waxing moon</span>
+      and <span class="east">spring</span>; of <span class="south">midday</span>, the
+        <span class="south">full moon</span> and <span class="south">summer</span>;
+        of <span class="west">evening</span>, the <span class="west">waning moon</span>,
+        and <span class="west">autumn</span>; and of <span class="north">night</span>,
+          the <span class="north">new moon</span> and <span class="north">winter</span>.
+      </p>
+
+    <p>When starting to orient to these naturally occuring pulses and rhythms
+      of energy and experience you might start to
+        see them
+        everywhere.
+    </p>
+
+    <div style="text-align: center;">
+      <span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A4C2E6; color: #1D4486; margin-right: 1px;'>H</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A2C8EA; color: #074F8B; margin-right: 1px;'>o</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A2CFEF; color: #00609C; margin-right: 1px;'>w</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A5D6EE; color: #006FAF; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #9DDCF7; color: #0089C4; margin-right: 1px;'>d</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A6DCDF; color: #00858C; margin-right: 1px;'>e</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A3D9D0; color: #008477; margin-right: 1px;'>e</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A5D9C8; color: #00855D; margin-right: 1px;'>p</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #ACDAC3; color: #008750; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #B4DDC2; color: #008648; margin-right: 1px;'>d</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #B6DDB6; color: #2C8E44; margin-right: 1px;'>o</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #B9DCA9; color: #4A8E41; margin-right: 1px;'>e</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #C5E0A5; color: #69913D; margin-right: 1px;'>s</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #DBE9A8; color: #83953A; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #E9EDA5; color: #949436; margin-right: 1px;'>t</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #FEF7B5; color: #B6892A; margin-right: 1px;'>h</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #FBDD9C; color: #BB7E2B; margin-right: 1px;'>e</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #FFD6A2; color: #B16929; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #FDCBA0; color: #B15627; margin-right: 1px;'>r</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #FBBF9E; color: #A44025; margin-right: 1px;'>a</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F9B6A5; color: #AB2926; margin-right: 1px;'>b</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F8AC99; color: #AE292C; margin-right: 1px;'>b</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F8ACA0; color: #B52638; margin-right: 1px;'>i</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F8B0AC; color: #AF2643; margin-right: 1px;'>t</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F8B3B9; color: #A8234B; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F8B6C4; color: #A72255; margin-right: 1px;'>h</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #F6B6D0; color: #9D2063; margin-right: 1px;'>o</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #D1B3D5; color: #7C2774; margin-right: 1px;'>l</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #CCB7D9; color: #662A78; margin-right: 1px;'>e</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #BDB0D7; color: #4b286D; margin-right: 1px;'>&nbsp;</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #B6B1D8; color: #3D2D7B; margin-right: 1px;'>g</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #ADC3E2; color: #293875; margin-right: 1px;'>o</span><span style='font-size: 16.998708px; display: inline-block; line-height: 27.506px; text-align: center; width: 17px; height: 27.506px; background: #A4BCE2; color: #273A81; margin-right: 0px;'>?</span>
+    </div>
+
+    <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+    <h3 class="ui header" style="font-family: Raleway; margin: 1em;">
+      The rhythms of the Sun and Moon are the syncopated metronomes in the
+      symphony of life.
+    </h3>
+
+    <p>As cliche as it sounds, this pulse is nothing more, and nothing less, than
+      the great circle of life. It is birth and death.
+      <b>It is life and compost</b>.
+    </p>
+
+    <p>We can - <b>and we must</b> - rock out on our own solos from time to
+      time.  But if we do so without resonance with the underlying
+      rhythm - <b>isn’t that just obnoxious noise?</b></p>
+
+    <p>Let's regain our awareness
+      of the basic pulses inherent in the life around us and
+      <b>keep the
+      beat</b> with the rhythms of the world.
+    </p>
+
+      <!-- <p>
+        CyCals (cyclic calendars) are modeled directly on the rhythmic cycles of nature and
+        are made to inspire the <b>harmonic scheduling</b> of life’s events.
+      </p>
+
+      <p>Using calendars based on natural cycles helps to <b>reorient</b> your contextual
+        perspective of time.</p>
+
+      <p>
+        When you start scheduling in this way your sense of <b>where you are in
+        time</b> can become rhythmically oriented to the natural cycles that
+        are all around us.
+      </p>
+
+      <p>
+        It's easy to start noticing the correlations in "felt sense" of
+      <span class="east">morning</span>, the <span class="east">waxing moon</span>
+      and <span class="east">spring</span>; of <span class="south">midday</span>, the
+        <span class="south">full moon</span> and <span class="south">summer</span>;
+        of <span class="west">evening</span>, the <span class="west">waning moon</span>,
+        and <span class="west">autumn</span>; and of <span class="north">night</span>,
+          the <span class="north">new moon</span> and <span class="north">winter</span>.
+      </p>
+
+      <p>When starting to orient to these naturally occuring pulses and rhythms
+        of energy and experience you might start to
+          see them
+          everywhere.
+      </p>
+
+
+      <p>As cliche as it sounds, this pulse is nothing more, and nothing less, than
+        the great circle of life. It is birth and death.
+        <b>It is life and compost</b>.
+      </p>
+
+      <p>  We can - <b>and we must</b> - rock out on our own solos from time to
+        time.  But if we do so without resonance with the underlying
+        rhythm - <b>isn’t that just obnoxious noise?</b></p>
+
+      <p>Scheduling with The Lunar Cycle Calendar can help us regain our awareness
+        of the basic pulses inherent in the life around us and to <b>keep the
+        beat</b> with the rhythms of the world.</p> -->
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="calendars" class="ui centered header">
+        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        Calendars
+      </h3>
+
+      <h3 class="ui header">
+        <span class="one-four">Lunar Planner</span>
+      </h3>
+
+      <p>
+        Sixty page booklet featuring the cyclic
+        calendar wheels for each of the 13 lunar
+        months of the 2017 Lunar Year (Jan 27th, 2017 - Feb 14th, 2017).<br>
+        <i>More info coming soon...</i>
+      </p>
+
+      <h3 class="ui header">
+        <span class="two-four">Lunar Calendar<span>
+      </h3>
+
+      <p>
+        Wall hanging 12x12in calendar featuring the cyclic
+        calendar wheels for each of the 13 lunar
+        months of the 2017 Lunar Year (Jan 27th, 2017 - Feb 14th, 2017).<br>
+        <i>More info coming soon...</i>
+      </p>
+
+      <h3 class="ui header">
+        <span class="three-four">Solar Calendar</span>
+      </h3>
+
+      <p>
+        Wall poster (30x30in) featuring one cyclic
+        calendar wheel for the entire 2017 Solar Year
+        (Dec 21st, 2016 - Dec 20th, 2017)<br>
+        <i>More info coming soon...</i>
+      </p>
+
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="calculator" class='ui centered header' style="margin: 1em;">
+        <i class="fa fa-calculator" aria-hidden="true"></i>
+        Lunar Day Calculator
+      </h3>
+
+      <p>
+          Calculate the CyCal LuniSolar Day for any Western Gregorian Date.
+          I.e., enter your Western Birthdate to determine the CyCal Lunar Month
+          and Day of your birth.
+      </p>
+
+      <!--<iframe src="http://127.0.0.1:5000" class="lunarcalc-frame"></iframe>-->
+      <iframe src="https://blcpqfx35c.execute-api.us-west-2.amazonaws.com/production" class="lunarcalc-frame"></iframe>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="moonsletter" class="ui centered header" style="margin-bottom: 1em;">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+        Moonsletter
+      </h3>
+
+      <p>
+        Sign up for the CyCal Moonsletter (an email every New Moon) to learn
+        more in depth information about CyCal and lunisolar calendars and to
+        receive updates on upcoming calendars.
+      </p>
+
+      <center>
+      <iframe src="http://eepurl.com/cQiV9j" class="moonsletter-frame"></iframe>
+      </center>
+
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <h3 id="about" class="ui centered header" style="margin-bottom: 1em;">
+          <i class="fa fa-address-card" aria-hidden="true"></i>
+          About / Contact
+      </h3>
+
+      <img class="ui small circular left floated image" src="img/profile.png">
+
+      <p>My name is Jeremiah.  I live on the western slope of the Cascades
+        near the north-western coast of the US.  I'm trying to re-sync my personal
+        rhythm with the natural rhythms of this planet.  Feel free to contact
+        me:
+        <a href="mailto:jeremiah@cycalendars.com">jeremiah@cycalendars.com</a>.
+      </p>
+</div>
+
+  <div class="ui vertical footer segment">
+    <div class="ui text container">
+      <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>
+
+      <table style="margin: auto;"><tr>
+        <td>
+          <nobr><span class='letter' style='background: #A5D6EE; color: #006FAF;'>C</span><span class='letter' style='background: #B4DDC2; color: #008648;'>y</span><span class='letter' style='background: #FBDD9C; color: #BB7E2B;'>C</span><span class='letter' style='background: #F8B0AC; color: #AF2643;'>a</span><span class='letter' style='background: #BDB0D7; color: #4b286D;'>l</span></nobr>
+        </td>
+        <td>
+        </td>
+      </tr></table>
+
+        <p>
+            <small>© 2016-17 Jeremiah Konkle</small>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58424545-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>
