@@ -352,11 +352,11 @@
     <div class="ui vertical strip segment" style="margin-bottom: 1em;"></div>        
     
     <h3 class="ui centered header" id="solar-year">
-      <span class="one-four">2018 Solar Year Calendar</span>
+      <span class="one-four">2019 Solar Year Calendar</span>
     </h3>
     <h4 class="ui centered header" style="">
       <span class="two-four" style='margin-bottom: 0.5em;'>from the Northern Winter Solstice</span><br>
-      <span class="two-four">Dec 21st, 2017 ~ Dec 20th, 2018</span>
+      <span class="two-four">Dec 21st, 2018 ~ Dec 20th, 2019</span>
     </h4>
   </div>
 
@@ -366,18 +366,18 @@
         <div class="column">
           <img class="ui image"
             src="../static/image/solar-poster-square-800.jpg"
-            alt="CyCal 2018 Solar Year (Lunar/Solar Calendar)">
+            alt="CyCal Solar Year (Lunar/Solar Calendar)">
         </div>
         <div class="column">
           <img class="ui image"
             src="../static/image/solar-poster-mockup-1000.jpg"
-            alt="CyCal 2018 Solar Year (Lunar/Solar Calendar)">
+            alt="CyCal Solar Year (Lunar/Solar Calendar)">
         </div>
         <div class="column">
           <img class="ui circular middle aligned image"
             src="../static/image/solar-close-up-800.jpg"
             style="width:85%; padding-top: 2.5em;"
-            alt="CyCal 2018 Solar Year (Lunar/Solar Calendar)">
+            alt="CyCal Solar Year (Lunar/Solar Calendar)">
         </div>
       </div>
     </div>  
@@ -467,7 +467,7 @@
 
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent('product', {
-        id: [360648441897],
+        id: [1495078666275],
         node: document.getElementById('product-component-b9cd6b49dea'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
@@ -631,7 +631,7 @@
 
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent('product', {
-        id: [360653848617],
+        id: [1495079092259],
         node: document.getElementById('product-component-5a023153fd8'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
@@ -795,7 +795,7 @@
 
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent('product', {
-        id: [360586379305],
+        id: [1495077486627],
         node: document.getElementById('product-component-8a28fc1f0f5'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
@@ -959,7 +959,7 @@
 
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent('product', {
-        id: [360657584169],
+        id: [1495079387171],
         node: document.getElementById('product-component-c3a776045cf'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
@@ -1159,649 +1159,19 @@
   <div class="ui container" style="margin-bottom: 2em;">
     <div class="ui equal width stackable grid">
       <div class="center aligned row">
-        
-                <div class="column" style='text-align: center'>
-                    <div style='display: inline-block'>
-                        <div id='product-component-2c742847837'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'cycal-cyclic-calendars.myshopify.com',
-      apiKey: 'e049f87d20d18b16fc365ad8d7a04dca',
-      appId: '6',
-    });
-
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: [426309189673],
-        node: document.getElementById('product-component-2c742847837'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "buttonDestination": "modal",
-    "variantId": "all",
-    "contents": {
-      "imgWithCarousel": false,
-      "variantTitle": false,
-      "options": false,
-      "description": false,
-      "buttonWithQuantity": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "View / Purchase"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0",
-          "margin-bottom": "50px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "compareAt": {
-        "font-size": "12px"
-      }
-    }
-  },
-  "cart": {
-    "contents": {
-      "button": true
-    },
-    "styles": {
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "footer": {
-        "background-color": "#ffffff"
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "variantTitle": false,
-      "buttonWithQuantity": true,
-      "button": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "Add To Cart"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  }
-}
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
-
-                    </div>
-                </div>
-            
-
-                <div class="column" style='text-align: center'>
-                    <div style='display: inline-block'>
-                        <div id='product-component-c595b40e71b'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'cycal-cyclic-calendars.myshopify.com',
-      apiKey: 'e049f87d20d18b16fc365ad8d7a04dca',
-      appId: '6',
-    });
-
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: [426405920809],
-        node: document.getElementById('product-component-c595b40e71b'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "buttonDestination": "modal",
-    "variantId": "all",
-    "width": "240px",
-    "contents": {
-      "imgWithCarousel": false,
-      "variantTitle": false,
-      "options": false,
-      "description": false,
-      "buttonWithQuantity": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "View / Purchase"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0",
-          "margin-bottom": "50px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "compareAt": {
-        "font-size": "12px"
-      }
-    }
-  },
-  "cart": {
-    "contents": {
-      "button": true
-    },
-    "styles": {
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "footer": {
-        "background-color": "#ffffff"
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "variantTitle": false,
-      "buttonWithQuantity": true,
-      "button": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "Add To Cart"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  }
-}
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
-
-                    </div>
-                </div>
-            
-
-                <div class="column" style='text-align: center'>
-                    <div style='display: inline-block'>
-                        <div id='product-component-4f434e0aa5d'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'cycal-cyclic-calendars.myshopify.com',
-      apiKey: 'e049f87d20d18b16fc365ad8d7a04dca',
-      appId: '6',
-    });
-
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: [440560255017],
-        node: document.getElementById('product-component-4f434e0aa5d'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "buttonDestination": "modal",
-    "variantId": "all",
-    "contents": {
-      "imgWithCarousel": false,
-      "variantTitle": false,
-      "options": false,
-      "description": false,
-      "buttonWithQuantity": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "View / Purchase"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0",
-          "margin-bottom": "50px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "compareAt": {
-        "font-size": "12px"
-      }
-    }
-  },
-  "cart": {
-    "contents": {
-      "button": true
-    },
-    "styles": {
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "footer": {
-        "background-color": "#ffffff"
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "variantTitle": false,
-      "buttonWithQuantity": true,
-      "button": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "Add To Cart"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  }
-}
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
-
-                    </div>
-                </div>
-            
-
-                <div class="column" style='text-align: center'>
-                    <div style='display: inline-block'>
-                        <div id='product-component-bebdffd3f8c'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'cycal-cyclic-calendars.myshopify.com',
-      apiKey: 'e049f87d20d18b16fc365ad8d7a04dca',
-      appId: '6',
-    });
-
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: [440565432361],
-        node: document.getElementById('product-component-bebdffd3f8c'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "buttonDestination": "modal",
-    "variantId": "all",
-    "contents": {
-      "imgWithCarousel": false,
-      "variantTitle": false,
-      "options": false,
-      "description": false,
-      "buttonWithQuantity": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "View / Purchase"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0",
-          "margin-bottom": "50px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "compareAt": {
-        "font-size": "12px"
-      }
-    }
-  },
-  "cart": {
-    "contents": {
-      "button": true
-    },
-    "styles": {
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      },
-      "footer": {
-        "background-color": "#ffffff"
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "variantTitle": false,
-      "buttonWithQuantity": true,
-      "button": false,
-      "quantity": false
-    },
-    "text": {
-      "button": "Add To Cart"
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#ab2926",
-        ":hover": {
-          "background-color": "#9a2522"
-        },
-        ":focus": {
-          "background-color": "#9a2522"
-        }
-      }
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  }
-}
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
-
-                    </div>
-                </div>
-            
+        <!--  (lunar_calendar_product_listings)s -->
       </div>
     </div>  
   </div>
 
   <div class="ui text container">
+    <p style='font-size: 1em;'>
+      <b class="one-four">2019 Lunar Calendars are not currently available.</b>
+    </p>
+    <br>
+  </div>
 
+  <div class="ui text container">
     <p style='font-size: 1em;'>
       <b>Production/Fulfillment Time -</b> Three to five business days before
       shipping for Lunar Calendars.
